@@ -1,0 +1,10 @@
+﻿Licensing
+This mod and any code is part of Creative Commons.
+
+Textures
+Custom textures created specifically for this mod package may not be reused anywhere without my permission as they where created 
+
+Credits
+Rawcode from Ludeon Forum for getting the IL code working with Mono
+CCL for 64bit IL Patch and who ever made the patch.
+Master Bucketsmith from Ludeon Forum for ideas and support

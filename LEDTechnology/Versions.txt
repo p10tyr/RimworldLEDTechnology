@@ -1,0 +1,10 @@
+﻿0.7
+Implemented an angle glow flooder with basic collision detection
+
+0.6
+Took many hours to get redirection to work.
+Prepared DLL for custom Glowflooder work
+Updated sprites for LED Strips
+
+0.5
+Fixed glow area on LED Hydroponics to be exact ontoop of the Hydro Things
