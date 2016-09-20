@@ -14,9 +14,9 @@ A pack consisting of LED Technology.  [Version 0.7]
  
 ## GlowFlooder Framework
 
-1 Create a class that inherits from `: IGlowFlooder` 
-2 Implement the interface code. Use the existing code as a guideline. Caching is very important aspect to keep the game smooth!
-3 In your building register the glowFlooder using `CustomGlowFloodManager.RegisterFlooder(yourFlooder);`
+1. Create a class that inherits from `: IGlowFlooder` 
+2. Implement the interface code. Use the existing code as a guideline. Caching is very important aspect to keep the game smooth!
+3. In your building register the glowFlooder using `CustomGlowFloodManager.RegisterFlooder(yourFlooder);`
 
 Vanilla GlowComp will still work. They are processed first using the vanilla GlowFlooder. Then the customGlowflooder will process each next implementation as required, by calling the implemented interface method. 
 
