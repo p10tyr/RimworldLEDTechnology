@@ -1,3 +1,7 @@
+## Pull Requests
+Please, always work on the BleedingEdge branch and make sure it is fully resolved before doing Pull Request from your fork.
+
+
 ## Rimworld LED Technology
 
 A pack consisting of LED Technology.  [Version 0.7]
