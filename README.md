@@ -1,6 +1,8 @@
 ## Pull Requests
 Please, always work on the BleedingEdge branch and make sure it is fully resolved before doing Pull Request from your fork.
 
+## DRM Free downloads ##
+Please select a verion from branch and download the ZIP in MOD directory.
 
 ## Rimworld LED Technology
 
