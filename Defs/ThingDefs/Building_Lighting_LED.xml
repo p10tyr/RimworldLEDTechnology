@@ -96,12 +96,12 @@
   
   <ThingDef ParentName="LampBase">
     <defName>LEDSecurityLamp</defName>
-    <label>High Power LED</label>
+    <label>High Power Array</label>
     <description>A high power array of LED's used to illuminate a large area.</description>
     <thingClass>ppumkin.LEDTechnology.LEDSecurityLamp</thingClass>
     <designationHotKey>Misc11</designationHotKey>
     <graphicData>
-      <texPath>Things/Building/LED_SpotlightV2</texPath>
+      <texPath>Things/Building/LED_HighpowerV2</texPath>
     </graphicData>
     <costList>
       <Steel>15</Steel>
