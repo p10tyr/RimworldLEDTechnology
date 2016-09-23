@@ -1,4 +1,9 @@
-﻿0.7
+﻿0.8 23/09/2016
+Rearranged code to meet convention used where to store source. Plus it makes sense anyway.
+Added research and fixed requirements
+Rebalanced material costs since components are very scarce
+
+0.7
 Implemented an angle glow flooder with basic collision detection
 
 0.6

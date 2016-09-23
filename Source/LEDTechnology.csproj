@@ -13,13 +13,14 @@
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
+    <DebugSymbols>false</DebugSymbols>
+    <DebugType>none</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>D:\Program Files %28x86%29\Steam\steamapps\common\RimWorld\Mods\LED\Assemblies\</OutputPath>
+    <OutputPath>..\Assemblies\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>none</DebugType>
@@ -53,18 +54,18 @@
     <Compile Include="Injectomatic\Facades\CustomGlowGrid.cs" />
     <Compile Include="Injectomatic\GameStart.cs" />
     <Compile Include="Injectomatic\ILTools\rawcode.cs" />
-    <Compile Include="LEDHydroponicsBasin.cs" />
-    <Compile Include="LEDCornerStrip.cs" />
-    <Compile Include="LEDSmallStrip.cs" />
-    <Compile Include="LEDSecurityLamp.cs" />
-    <Compile Include="LEDSpotLight.cs" />
-    <Compile Include="LEDTools.cs" />
+    <Compile Include="Things\LEDHydroponicsBasin.cs" />
+    <Compile Include="Things\LEDCornerStrip.cs" />
+    <Compile Include="Things\LEDSmallStrip.cs" />
+    <Compile Include="Things\LEDSecurityLamp.cs" />
+    <Compile Include="Things\LEDSpotLight.cs" />
+    <Compile Include="Things\LEDTools.cs" />
     <Compile Include="Managers\CustomGlowFloodManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Commits.txt" />
     <Content Include="License.txt" />
+    <Content Include="Versions.txt" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -35,13 +35,13 @@
       <Flammability>1.0</Flammability>
     </statBases>
     <researchPrerequisites>
-      <li>Electricity</li>
+      <li>LEDTechnologyScience</li>
     </researchPrerequisites>
   </ThingDef>
 
   <ThingDef ParentName="LampBase">
     <defName>LEDSmallStrip</defName>
-    <label>LED Strip</label>
+    <label>Centre Strip</label>
     <description>A small and power efficient centred LED strip.</description>
     <thingClass>ppumkin.LEDTechnology.LEDSmallStrip</thingClass>
     <designationHotKey>Misc11</designationHotKey>
@@ -63,12 +63,12 @@
         <glowColor>214,221,84,0)</glowColor>
       </li>
     </comps>
-	<designationCategory>Furniture</designationCategory>
+	<designationCategory>LEDTechnology</designationCategory>
   </ThingDef>
  
   <ThingDef ParentName="LampBase">
     <defName>LEDCornerStrip</defName>
-    <label>Corner LED Strip</label>
+    <label>Corner Strip</label>
     <description>A small and power efficient LED strip that fits snug against walls.</description>
 	<thingClass>ppumkin.LEDTechnology.LEDCornerStrip</thingClass>
     <designationHotKey>Misc11</designationHotKey>
@@ -77,7 +77,7 @@
     </graphicData>
     <costList>
       <Steel>3</Steel>
-	  <Component>1</Component>
+	  <Silver>1</Silver>
     </costList>
     <comps>
       <li Class="CompProperties_Power">
@@ -90,7 +90,7 @@
         <glowColor>214,221,84,0)</glowColor>
       </li>
     </comps>
-	<designationCategory>Furniture</designationCategory>
+	<designationCategory>LEDTechnology</designationCategory>
   </ThingDef> 
   
   
@@ -105,7 +105,7 @@
     </graphicData>
     <costList>
       <Steel>15</Steel>
-	  <Component>5</Component>
+	  <Silver>15</Silver>
     </costList>
     <comps>
       <li Class="CompProperties_Power">
@@ -119,13 +119,13 @@
         <glowColor>214,221,84,0</glowColor>
       </li>
     </comps>
-	<designationCategory>Security</designationCategory>
+	<designationCategory>LEDTechnology</designationCategory>
   </ThingDef>
   
   
     <ThingDef ParentName="LampBase">
     <defName>LEDSpotLight</defName>
-    <label>LED Spot Light</label>
+    <label>Spot Light</label>
     <description>High power LED spotlight focused to roughly 45 degrees of intensive light.</description>
     <thingClass>ppumkin.LEDTechnology.LEDSpotLight</thingClass>
     <designationHotKey>Misc11</designationHotKey>
@@ -133,8 +133,8 @@
       <texPath>Things/Building/LED_Spotlight</texPath>
     </graphicData>
     <costList>
-      <Steel>15</Steel>
-	  <Component>5</Component>
+      <Steel>12</Steel>
+	  <Silver>8</Silver>
     </costList>
     <comps>
       <li Class="CompProperties_Power">
@@ -143,7 +143,7 @@
         <shortCircuitInRain>false</shortCircuitInRain>
       </li>
     </comps>
-	<designationCategory>Security</designationCategory>
+	<designationCategory>LEDTechnology</designationCategory>
   </ThingDef>
   
   <!--============================== Hydroponics ==============================-->
@@ -151,7 +151,7 @@
   
     <ThingDef ParentName="BuildingBase">
     <defName>LEDHydroponicsBasin</defName>
-    <label>LED UV Hydroponics Basin</label>
+    <label>UV Hydroponics</label>
     <description>Grows plants quickly in an artificial nutrient bath and lit using UV LED lights. Requires power to work; plants will die if power is cut.</description>
 	<thingClass>ppumkin.LEDTechnology.LEDHydroponicsBasin</thingClass>
     <graphicData>
@@ -179,10 +179,11 @@
     </statBases>
     <size>(1,4)</size>
     <costList>
-      <Steel>100</Steel>
-      <Component>3</Component>
+      <Steel>65</Steel>
+	  <Silver>8</Silver>
+	  <Component>1</Component>
     </costList>
-    <fertility>1.9</fertility>
+    <fertility>2.0</fertility>
     <building>
       <defaultPlantToGrow>PlantPotato</defaultPlantToGrow>
       <plantsDestroyWithMe>true</plantsDestroyWithMe>
@@ -200,9 +201,10 @@
     </comps>
     <researchPrerequisites>
 		<li>Hydroponics</li>
+		<li>LEDTechnologyScience</li>
 	</researchPrerequisites>
     <terrainAffordanceNeeded>Heavy</terrainAffordanceNeeded>
-    <designationCategory>Production</designationCategory>
+    <designationCategory>LEDTechnology</designationCategory>
   </ThingDef>
   
   
