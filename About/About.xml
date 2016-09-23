@@ -2,30 +2,31 @@
 <ModMetaData>
   <name>LED Technology</name>
   <author>Piotr Kula</author>
-  <url></url>
+  <url>https://github.com/ppumkin/RimworldLEDTechnology</url>
   <targetVersion>0.15.1284</targetVersion>
   <description>
-    A pack consisting of LED Technology.  [Version 0.8]
+A pack consisting of LED Technology.  [Version 0.8]
      
-    * LED Strip (8W) 
-    * LED Corner Strip (8W)
-    * LED 45 Degree Spot Light (25W)
-    * LED Security Light (50W) 
-    * LED Hydroponics (100W) 
-		
+ * LED Strip (8W) 
+ * LED Corner Strip (8W)
+ * LED 45 Degree Spot Light (25W)
+ * LED Security Light (50W) 
+ * LED UV Hydroponics (100W) 
 
-	
+
+ 
+ 
+ 
 Licensing
-This mod and any code is part of Creative Commons.
+ This mod and any code is part of Creative Commons.
 
 Textures
-Custom textures created specifically for this mod package
-may not be reused anywhere without my permission.
+ Custom textures created specifically for this mod package
+ may not be reused anywhere without my permission.
 
 Credits
-Rawcode from Ludeon Forum
-CCL for 64bit IL Patch
-Master Bucketsmith from Ludeon Forum
-
+ ~ Rawcode from Ludeon Forum
+ ~ CCL for 64bit IL Patch
+ ~ Master Bucketsmith from Ludeon Forum
   </description>
 </ModMetaData>

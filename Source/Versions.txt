@@ -1,4 +1,6 @@
-﻿0.8 23/09/2016
+﻿##CODE##
+
+0.8 23/09/2016
 Rearranged code to meet convention used where to store source. Plus it makes sense anyway.
 Added research and fixed requirements
 Rebalanced material costs since components are very scarce
@@ -13,3 +15,38 @@ Updated sprites for LED Strips
 
 0.5
 Fixed glow area on LED Hydroponics to be exact ontoop of the Hydro Things
+
+
+##STEAM##
+
+-0.6 
+Updated LED Strip and LED Corner Strip sprites 
+Fixed Hydroponics lights going off when placing any new object 
+DLL optimizations and framework for new features to come 
+
+- 0.5 
+Hydroponics is in final version. 
+Adjusted new sprite to fit nicely and fixed offcentre lighting bug. All squares are evenly lit in any orientation. 
+
+- 0.4 (14/09/2016) 
+I have added sensible version numbers to the about in the mod in game so you can know which version you are on. 
+This mod contains a base DLL that will be used to make some features better. 
+Save game will load with no problem but any old structures must be replaced asap (sorry) to register the newly placed structures with the DLL. You can identify the strutures that use DLL by looking at the description. Last line will end with "..." while normal prior to 0.4 just ends with "." - The reason to do this now is so that every next update will automagically use any new DLL code without problems like this. 
+Sorry for any inconvienice caused.. I admit I am still learning but I would like to make a really nice mod and trying my best to minimise collaterol damage! Thanks for your support! 
+
+-14/09/2016 
+Got a fancy new sprite for LED Hydroponics 
+
+-12/09/2016 
+Renamed this mod to "LED Technology" to avoid clash of names from another mod not hosted on Workshop. 
+Save game will not crash. MOD ID is still the same just Name was changed. Phew! 
+
+- 11/09/2016 16:00 
+Fixed alignement issue when rotating centred LED strips- They did not align up properly when rotated. 
+Added a Corner LED Strip which fit snug against walls to give that illumination effect 
+
+- 10/09/16 15:00 
+Addes security spot light 
+
+- 10/09/16 13:00PM 
+(save games will break here if you used the first version - Sorry :[ ) Added LED hydroponics - 10/09/16 01:30AM (First Version) Initial mod pack with centre (Small LED Strip) **If you subscribed to this mod before 11/09/2016** For early subscribers (first Version)(with just LED strip), I am sorry but the save game will break :( I had to make some major changes - So before updating - please remove ALL LED's Save, then update the MOD. I will add version history from now on. There a few more things I want to add. All udpated will be tested progressivly to prevent save game fixes. Order of loading is not important yet.
