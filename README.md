@@ -2,11 +2,11 @@
 Please, always work on the BleedingEdge branch and make sure it is fully resolved before doing Pull Request from your fork.
 
 ## DRM Free downloads ##
-Please select a verion from branch and download the ZIP in MOD directory.
+Please select a verion from branch and download the ZIP in Compiled directory.
 
 ## Rimworld LED Technology
 
-A pack consisting of LED Technology.  [Version 0.7]
+A pack consisting of LED Technology.  [Version 0.8]
      
 - LED Strip (8W) 
 - LED Corner Strip (8W)
