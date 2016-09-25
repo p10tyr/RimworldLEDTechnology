@@ -50,7 +50,7 @@
     </graphicData>
     <costList>
       <Steel>3</Steel>
-	  <Component>1</Component>
+	  <Silver>1</Silver>
     </costList>
     <comps>
       <li Class="CompProperties_Power">
