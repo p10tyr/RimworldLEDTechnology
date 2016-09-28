@@ -9,7 +9,7 @@ using RimWorld;
 
 namespace ppumkin.LEDTechnology
 {
-    public class LEDSmallStrip : Building
+    public class LEDCentreStripCorner : Building
     {
 
         public override string GetInspectString()

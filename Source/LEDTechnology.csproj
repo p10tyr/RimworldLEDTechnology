@@ -54,9 +54,13 @@
     <Compile Include="Injectomatic\Facades\CustomGlowGrid.cs" />
     <Compile Include="Injectomatic\GameStart.cs" />
     <Compile Include="Injectomatic\ILTools\rawcode.cs" />
+    <Compile Include="Things\LEDCentreStrips\LEDCentreStrip.cs" />
     <Compile Include="Things\LEDHydroponicsBasin.cs" />
-    <Compile Include="Things\LEDCornerStrip.cs" />
-    <Compile Include="Things\LEDSmallStrip.cs" />
+    <Compile Include="Things\LEDCornerStrips\LEDCornerStrip.cs" />
+    <Compile Include="Things\LEDCentreStrips\LEDCentreStripCross.cs" />
+    <Compile Include="Things\LEDCentreStrips\LEDCentreStripTee.cs" />
+    <Compile Include="Things\LEDCentreStrips\LEDCentreStripCorner.cs" />
+    <Compile Include="Things\LEDCentreStrips\LEDSmallStrip.cs" />
     <Compile Include="Things\LEDSecurityLamp.cs" />
     <Compile Include="Things\LEDSpotLight.cs" />
     <Compile Include="Things\LEDTools.cs" />
