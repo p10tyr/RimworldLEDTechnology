@@ -209,7 +209,7 @@
   
   
   
-  <!--============================== Security Lamps ==============================-->
+  <!--============================== Security LED Lights ==============================-->
   
   <ThingDef ParentName="LampBase">
     <defName>LEDSecurityLamp</defName>
@@ -218,7 +218,7 @@
     <thingClass>ppumkin.LEDTechnology.LEDSecurityLamp</thingClass>
     <designationHotKey>Misc11</designationHotKey>
     <graphicData>
-      <texPath>Things/Building/LED_HighpowerV2</texPath>
+      <texPath>Things/Building/Spotlights/LED_HighpowerArray</texPath>
     </graphicData>
     <costList>
       <Steel>15</Steel>
@@ -246,8 +246,9 @@
     <description>High power LED spotlight focused to roughly 45 degrees of intensive light.</description>
     <thingClass>ppumkin.LEDTechnology.LEDSpotLight</thingClass>
     <designationHotKey>Misc11</designationHotKey>
+	<uiIconPath>Things/Building/Spotlights/LED_Spotlight_Menu</uiIconPath>
     <graphicData>
-      <texPath>Things/Building/LED_Spotlight_90</texPath>
+      <texPath>Things/Building/Spotlights/LED_Spotlight</texPath>
     </graphicData>
     <costList>
       <Steel>12</Steel>
