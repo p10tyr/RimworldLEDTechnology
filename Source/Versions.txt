@@ -1,5 +1,8 @@
 ﻿##CODE##
 
+0.9 28/09/2016
+Added Bends, Tee's and Cross sections as suggested by sma342 on Steam. Thanks!
+
 0.8 23/09/2016
 Rearranged code to meet convention used where to store source. Plus it makes sense anyway.
 Added research and fixed requirements
