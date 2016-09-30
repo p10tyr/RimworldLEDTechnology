@@ -40,7 +40,7 @@ namespace ppumkin.LEDTechnology.Managers
 
         public static void RefreshGlowFlooders()
         {
-            Log.Message("CustomGlowFlooder: Refreshing all registered glowFlooders");
+            //Log.Message("CustomGlowFlooder: Refreshing all registered glowFlooders");
             foreach (var customFlooder in customFlooders)
             {
                 customFlooder.CalculateGlowFlood();
