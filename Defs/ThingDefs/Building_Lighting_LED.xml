@@ -9,7 +9,7 @@
         <passability>PassThroughOnly</passability>
         <selectable>true</selectable>
         <fillPercent>0.20</fillPercent>
-        <pathCost>8</pathCost>
+     
         <leaveResourcesWhenKilled>false</leaveResourcesWhenKilled>
         <soundImpactDefault>BulletImpactMetal</soundImpactDefault>
         <rotatable>true</rotatable>
@@ -44,6 +44,8 @@
         <placingDraggableDimensions>1</placingDraggableDimensions>
         <altitudeLayer>FloorEmplacement</altitudeLayer>
 		
+		<pathCost>0</pathCost>
+		   
 		 <costList>
             <Steel>1</Steel>
             <Silver>1</Silver>
@@ -203,6 +205,7 @@
             <Steel>15</Steel>
             <Silver>15</Silver>
         </costList>
+		<pathCost>20</pathCost>
         <comps>
             <li Class="CompProperties_Power">
                 <compClass>CompPowerTrader</compClass>
@@ -231,6 +234,7 @@
             <Steel>12</Steel>
             <Silver>8</Silver>
         </costList>
+		<pathCost>8</pathCost>
         <comps>
             <li Class="CompProperties_Power">
                 <compClass>CompPowerTrader</compClass>
