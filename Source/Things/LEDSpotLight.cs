@@ -24,7 +24,7 @@ namespace ppumkin.LEDTechnology
 
         protected override void ReceiveCompSignal(string signal)
         {
-            Log.Message("AngleLight Signal:" + signal);
+            //Log.Message("AngleLight Signal:" + signal);
             if (signal == "PowerTurnedOn") {
                 if (!CustomGlowFloodManager.IsGlowerRegistered(thisFlooder))
                     registerFlooder();

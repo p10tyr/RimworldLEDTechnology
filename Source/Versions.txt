@@ -1,5 +1,9 @@
 ﻿##CODE##
 
+0.10 29/09/2016
+Updated spotlight sprite
+Enabled drag and place for LED's
+
 0.9 28/09/2016
 Added Bends, Tee's and Cross sections as suggested by sma342 on Steam. Thanks!
 
