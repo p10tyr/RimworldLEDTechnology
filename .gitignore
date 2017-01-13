@@ -2,3 +2,5 @@
 *.pdb
 /LEDTechnology/obj
 /LEDTechnology/bin
+/Source/LEDTechnology.v3.ncrunchsolution.user
+/Source/obj/Debug

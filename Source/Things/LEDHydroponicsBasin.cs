@@ -17,9 +17,9 @@ namespace ppumkin.LEDTechnology
 
         //private CompPowerTrader compPower;
 
-        public override void SpawnSetup()
+        public override void SpawnSetup(Map map)
         {
-            base.SpawnSetup();
+            base.SpawnSetup(map);
 
             registerFlooder();
         }
@@ -37,10 +37,11 @@ namespace ppumkin.LEDTechnology
             return text;
         }
 
-        private void registerFlooder(){
+        private void registerFlooder()
+        {
             HydroponicsFlooder hf = new HydroponicsFlooder(this.Position, this.Rotation, this.PowerComp, base.GetComp<CompPowerTrader>());
             CustomGlowFloodManager.RegisterFlooder(hf);
         }
- 
+
     }
 }

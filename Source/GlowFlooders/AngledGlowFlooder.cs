@@ -41,7 +41,7 @@ namespace ppumkin.LEDTechnology.GlowFlooders
             Color = new Color32(254, 255, 179, 0);
 
 
-            innerArray = Find.EdificeGrid.InnerArray;
+            innerArray = Find.VisibleMap.edificeGrid.InnerArray;
 
             targetDistance = 16;
             angleModulus = 2;  //0 is 90 and the higher you go the more narrow the angle. //angle 45 is every two tiles? - actually its 90 because left side is 0->45 and then right is 45<-0
@@ -64,7 +64,7 @@ namespace ppumkin.LEDTechnology.GlowFlooders
             Color32 noColor = new Color32(0, 0, 0, 0);
             foreach (var i in ColorCellIndexCache)
             {
-                Find.GlowGrid.glowGrid[i.CellGridIndex] = noColor;
+                Find.VisibleMap.glowGrid.glowGrid[i.CellGridIndex] = noColor;
                 //Find.MapDrawer.MapMeshDirty(thingPosition, MapMeshFlag.GroundGlow);
             }
             ColorCellIndexCache = new List<GlowGridCache>();
@@ -115,7 +115,7 @@ namespace ppumkin.LEDTechnology.GlowFlooders
                 {
                     //Log.Message("distance: " + distance + " xD:" + x + " zD:" + z + " mod:" + distance % 3);
                     var _pos = Position.ToOffsetPositionDirection(distance, angleDelta, this.Orientation);
-                    if (_pos.InBounds())
+                    if (_pos.InBounds(Find.VisibleMap))
                     {
                         ////Log.Message("Block?: X:" + _pos.x + " Z: " + _pos.z);
                         if (isBlocked(_pos, angleDelta))
@@ -155,7 +155,8 @@ namespace ppumkin.LEDTechnology.GlowFlooders
 
         private bool isBlocked(IntVec3 position, int angleDelta)
         {
-            var thingBlockers = innerArray[CellIndices.CellToIndex(position)];
+            var ci = Find.VisibleMap.cellIndices;
+            var thingBlockers = innerArray[ci.CellToIndex(position)];
             if (thingBlockers != null)
             {
                 if (thingBlockers.def.blockLight)
@@ -250,7 +251,7 @@ namespace ppumkin.LEDTechnology.GlowFlooders
             //this is why I wanted a list to and not an array, saves some valuable CPU overhead
             foreach (var cell in ColorCellIndexCache.Where(x => !x.IsBlocked))
             {
-                Find.GlowGrid.glowGrid[cell.CellGridIndex] = cell.ColorAtCellIndex;
+                Find.VisibleMap.glowGrid.glowGrid[cell.CellGridIndex] = cell.ColorAtCellIndex;
             }
 
 
@@ -267,7 +268,7 @@ namespace ppumkin.LEDTechnology.GlowFlooders
             //Dont really want this here but the timing of this particulr object is wierd so I need to mark it dirty
 
             //In this case we need to mark several positions as dirty as the internal updated works with regions only
-            Find.MapDrawer.MapMeshDirty(Position, MapMeshFlag.GroundGlow);
+            Find.VisibleMap.mapDrawer.MapMeshDirty(Position, MapMeshFlag.GroundGlow);
         }
 
         public override string ToString()

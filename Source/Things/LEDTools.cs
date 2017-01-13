@@ -98,14 +98,16 @@ namespace ppumkin.LEDTechnology
 
         public static bool IsGridCellGlowing(IntVec3 thingPosition)
         {
-            Color32 gridColor = Find.GlowGrid.glowGrid[CellIndices.CellToIndex(thingPosition)];
+            var ci = Find.VisibleMap.cellIndices;
+            Color32 gridColor = Find.VisibleMap.glowGrid.glowGrid[ci.CellToIndex(thingPosition)];
             //Log.Message("IsGridGlowing Color: " + gridColor.ToString() + " Postion: " + thingPosition);
             return (gridColor.r != 0 & gridColor.r != 0 & gridColor.r != 0);
         }
 
         public static int AsCellIndex(this IntVec3 position)
         {
-            return CellIndices.CellToIndex(position);
+            var ci = Find.VisibleMap.cellIndices;
+            return ci.CellToIndex(position);
         }
 
         public static string ToLog(this IntVec3 postition)
