@@ -6,7 +6,7 @@ Please select a verion from branch and download the ZIP in Compiled directory.
 
 ## Rimworld LED Technology
 
-A pack consisting of LED Technology.  [Version 0.8]
+A pack consisting of LED Technology. [A16][Version 0.11] 
      
 - LED Strip (8W) 
 - LED Corner Strip (8W)
