@@ -6,11 +6,11 @@ using System.Text;
 using UnityEngine;
 using Verse;
 using RimWorld;
-using System.Reflection;    
+using System.Reflection;
 
 namespace ppumkin.LEDTechnology.Injectomatic.Facades
 {
-   
+
     public class _GlowerGridPropertyHelper
     {
 
@@ -35,7 +35,7 @@ namespace ppumkin.LEDTechnology.Injectomatic.Facades
             //Log.Message("_initialGlowerLocs was NOT NULL and returning value");
             //return (List<IntVec3>)_initialGlowerLocs.GetValue(_initialGlowerLocs);
 
-            var data = Find.GlowGrid;
+            var data = Find.VisibleMap.glowGrid;
             //FieldInfo[] fields = data.GetType().GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
             //foreach (FieldInfo f in fields)
             //{
@@ -67,7 +67,7 @@ namespace ppumkin.LEDTechnology.Injectomatic.Facades
             //Log.Message("_initialGlowerLocs was NOT NULL and returning value");
             //return (List<IntVec3>)_initialGlowerLocs.GetValue(_initialGlowerLocs);
 
-            var data = Find.GlowGrid;
+            var data = Find.VisibleMap.glowGrid;
             //FieldInfo[] fields = data.GetType().GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
             //foreach (FieldInfo f in fields)
             //{
@@ -90,6 +90,7 @@ namespace ppumkin.LEDTechnology.Injectomatic.Facades
         {
             //Log.Message("CustomGlowGrid: RecalculateAllGlow()");
 
+            var glowFlooder = Find.VisibleMap.glowFlooder;
             var initialGlowerLocs = _GlowerGridPropertyHelper.InitialGlowerLocs();
             //Log.Message("InitialGlowerLocs count: " + initialGlowerLocs.Count );
             var litGlowers = _GlowerGridPropertyHelper.LitGlowers();
@@ -98,7 +99,7 @@ namespace ppumkin.LEDTechnology.Injectomatic.Facades
 
             //Log.Message("CustomGlowGrid: Got private fields()");
 
-            if (Current.ProgramState != ProgramState.MapPlaying)
+            if (Current.ProgramState != ProgramState.Playing)
             {
                 return;
             }
@@ -106,21 +107,22 @@ namespace ppumkin.LEDTechnology.Injectomatic.Facades
             {
                 foreach (IntVec3 current in initialGlowerLocs)
                 {
-                    Find.GlowGrid.MarkGlowGridDirty(current);
+                    Find.VisibleMap.glowGrid.MarkGlowGridDirty(current);
                 }
                 initialGlowerLocs = null;
             }
             //Log.Message("CustomGlowGrid: MarkGlowGridDirty(IntVec3)");
 
-            for (int i = 0; i < CellIndices.NumGridCells; i++)
+            var ci = Find.VisibleMap.cellIndices;
+            for (int i = 0; i < ci.NumGridCells; i++)
             {
-                Find.GlowGrid.glowGrid[i] = new Color32(0, 0, 0, 0); //luckily this was public.. phew :)
+                Find.VisibleMap.glowGrid.glowGrid[i] = new Color32(0, 0, 0, 0); //luckily this was public.. phew :)
             }
             //Log.Message("CustomGlowGrid: Cleared grid cells with RGB(0,0,0,0)");
 
             foreach (CompGlower current2 in litGlowers)
             {
-                GlowFlooder.AddFloodGlowFor(current2);
+                glowFlooder.AddFloodGlowFor(current2);
             }
             //Log.Message("CustomGlowGrid: Recalculated the original flood glower");
 

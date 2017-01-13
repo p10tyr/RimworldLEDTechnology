@@ -43,7 +43,7 @@ namespace ppumkin.LEDTechnology.GlowFlooders
             Color32 noColor = new Color32(0,0,0,0);
             foreach (var i in ColorCellIndexCache)
             {
-                Find.GlowGrid.glowGrid[i.CellGridIndex] = noColor;
+                Find.VisibleMap.glowGrid.glowGrid[i.CellGridIndex] = noColor;
                 //Find.MapDrawer.MapMeshDirty(thingPosition, MapMeshFlag.GroundGlow);
             }
             ColorCellIndexCache = new List<GlowGridCache>();
@@ -104,7 +104,7 @@ namespace ppumkin.LEDTechnology.GlowFlooders
         {
             foreach (var i in ColorCellIndexCache)
             {
-                Find.GlowGrid.glowGrid[i.CellGridIndex] = i.ColorAtCellIndex;
+                Find.VisibleMap.glowGrid.glowGrid[i.CellGridIndex] = i.ColorAtCellIndex;
             }
         }
 

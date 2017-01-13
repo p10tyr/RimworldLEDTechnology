@@ -16,16 +16,17 @@ namespace ppumkin.LEDTechnology
 
         AngledGlowFlooder thisFlooder;
 
-        public override void SpawnSetup()
+        public override void SpawnSetup(Map map)
         {
-            base.SpawnSetup();
+            base.SpawnSetup(map);
             registerFlooder();
         }
 
         protected override void ReceiveCompSignal(string signal)
         {
             //Log.Message("AngleLight Signal:" + signal);
-            if (signal == "PowerTurnedOn") {
+            if (signal == "PowerTurnedOn")
+            {
                 if (!CustomGlowFloodManager.IsGlowerRegistered(thisFlooder))
                     registerFlooder();
 
@@ -34,7 +35,7 @@ namespace ppumkin.LEDTechnology
 
             if (signal == "PowerTurnedOff")
                 CustomGlowFloodManager.DeRegisterGlower(thisFlooder);
-            
+
             //we need to force a lighting refresh manually here
             CustomGlowFloodManager.RefreshGlowFlooders();
         }

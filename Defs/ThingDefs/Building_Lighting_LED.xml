@@ -91,63 +91,6 @@
     </ThingDef>
 	
 	
-	<!--Obsolete - Left for compatibility only - Delete in version v0.20-->
-    <ThingDef ParentName="LEDStripLampBase">
-        <defName>LEDSmallStrip</defName>
-        <label>Centre Strip</label>
-        <description>A small and power efficient centred LED strip.</description>
-        <thingClass>ppumkin.LEDTechnology.LEDCentreStrip</thingClass>
-        <graphicData>
-            <texPath>Things/Building/LED/LEDCentre/LEDCentreStrip</texPath>
-        </graphicData>
-		<designationCategory>LEDTechnologyObsolete</designationCategory>
-    </ThingDef>
-	
-    <ThingDef ParentName="LEDStripLampBase">
-        <defName>LEDSmallStripCorner</defName>
-        <label>Centre Strip Bend</label>
-        <description>A small and power efficient centred LED bend strip.</description>
-        <thingClass>ppumkin.LEDTechnology.LEDCentreStripCorner</thingClass>
-        <graphicData>
-            <texPath>Things/Building/LED/LEDCentre/LEDCentreStrip_Corner</texPath>
-        </graphicData>
-		<designationCategory>LEDTechnologyObsolete</designationCategory>
-    </ThingDef>
-	
-    <ThingDef ParentName="LEDStripLampBase">
-        <defName>LEDSmallStripTee</defName>
-        <label>Centre Strip Tee</label>
-        <description>A small and power efficient centred tee LED strip.</description>
-        <thingClass>ppumkin.LEDTechnology.LEDCentreStripTee</thingClass>
-        <designationHotKey>Misc11</designationHotKey>
-        <graphicData>
-            <texPath>Things/Building/LED/LEDCentre/LEDCentreStrip_Tee</texPath>
-        </graphicData>
-		 <costList>
-            <Steel>2</Steel>
-            <Silver>1</Silver>
-        </costList>
-		<designationCategory>LEDTechnologyObsolete</designationCategory>
-    </ThingDef>
-	
-    <ThingDef ParentName="LEDStripLampBase">
-        <defName>LEDSmallStripCross</defName>
-        <label>Centre Strip Tee</label>
-        <description>A small and power efficient centred cross LED strip.</description>
-        <thingClass>ppumkin.LEDTechnology.LEDCentreStripCross</thingClass>
-        <designationHotKey>Misc11</designationHotKey>
-        <graphicData>
-            <texPath>Things/Building/LED/LEDCentre/LEDCentreStrip_Cross</texPath>
-        </graphicData>
-		 <costList>
-            <Steel>3</Steel>
-            <Silver>1</Silver>
-        </costList>
-		<designationCategory>LEDTechnologyObsolete</designationCategory>
-    </ThingDef>
-	
-	
-	
     <!--============================== Corner Strips ==============================-->
     <ThingDef ParentName="LEDStripLampBase">
         <defName>LEDCornerStrip</defName>
@@ -284,7 +227,6 @@
         <fertility>2.0</fertility>
         <building>
             <defaultPlantToGrow>PlantPotato</defaultPlantToGrow>
-            <plantsDestroyWithMe>true</plantsDestroyWithMe>
             <sowTag>Hydroponic</sowTag>
         </building>
         <tickerType>Rare</tickerType>
