@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-using UnityEngine;
-using Verse;
-using RimWorld;
+﻿using ppumkin.LEDTechnology.GlowFlooders;
 using ppumkin.LEDTechnology.Managers;
-using ppumkin.LEDTechnology.GlowFlooders;
+using RimWorld;
+using Verse;
 
 //using RimWorld.SquadAI;  // RimWorld specific functions for squad brains 
 namespace ppumkin.LEDTechnology
@@ -17,9 +11,9 @@ namespace ppumkin.LEDTechnology
 
         //private CompPowerTrader compPower;
 
-        public override void SpawnSetup(Map map)
+        public override void SpawnSetup(Map map, bool respawn)
         {
-            base.SpawnSetup(map);
+            base.SpawnSetup(map, respawn);
 
             registerFlooder();
         }

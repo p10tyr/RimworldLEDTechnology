@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ModMetaData>
-  <name>LED Technology [A16]</name>
+  <name>LED Technology [A17]</name>
   <author>Piotr Kula</author>
   <url>https://github.com/ppumkin/RimworldLEDTechnology</url>
-  <targetVersion>0.16.1393</targetVersion>
+  <targetVersion>0.17.1557</targetVersion>
   <description>
-A pack consisting of LED Technology.  [Version 0.11]
+A pack consisting of LED Technology.  [Version 0.12]
      
  * LED Centre Strips (8W) (Drag'n'Place)
  * LED Corner Strips (8W)
