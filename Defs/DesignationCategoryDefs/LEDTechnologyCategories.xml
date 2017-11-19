@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
-
 	<DesignationCategoryDef>
-		<DefName>LEDTechnology</DefName>
+		<defName>LEDTechnology</defName>
 		<label>LED</label>
 		<description>Things associated with LED Technology.</description>
 		<order>225</order>
@@ -11,5 +10,4 @@
 			<li>Designator_Deconstruct</li>
 		</specialDesignatorClasses>
 	</DesignationCategoryDef>
-
 </Defs>

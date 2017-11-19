@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
+﻿using System.Collections.Generic;
+using System.Reflection;
 using UnityEngine;
 using Verse;
-using RimWorld;
-using System.Reflection;
 
 namespace ppumkin.LEDTechnology.Injectomatic.Facades
 {
@@ -122,14 +117,14 @@ namespace ppumkin.LEDTechnology.Injectomatic.Facades
 
             foreach (CompGlower current2 in litGlowers)
             {
-                glowFlooder.AddFloodGlowFor(current2);
+                glowFlooder.AddFloodGlowFor(current2, Find.VisibleMap.glowGrid.glowGrid);
             }
             //Log.Message("CustomGlowGrid: Recalculated the original flood glower");
 
 
             //I just wanted this one freaking line in the original game and had to go to all this trouble to hack it in.
             //It took me about 20hours to figure out how to put this here.
-            //It started out with me playing RimWolrd and enjoying it so much that I looked into MOD's. Then I realised that they are pretty easy
+            //It started out with me playing RimWorld and enjoying it so much that I looked into MOD's. Then I realised that they are pretty easy
             //to make using the XML documents and then later that you can use C# to make even nicer one.
             //So from opening VisualStudio and loading in the Rimworld DLL for the first time, first time looking at the code and hardly any documents, 20 man hours later
             //I finally got this in here.
