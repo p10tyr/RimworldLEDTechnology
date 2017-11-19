@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
+using RimWorld;
 using UnityEngine;
 using Verse;
-using RimWorld;
 
 namespace ppumkin.LEDTechnology.GlowFlooders
 {
@@ -16,8 +13,8 @@ namespace ppumkin.LEDTechnology.GlowFlooders
 
         public Rot4 Orientation { get; private set; }
         public Color32 Color { get; private set; }
-        CompPower CP { get;  set; }
-        CompPowerTrader CPT { get;  set; }
+        CompPower CP { get; set; }
+        CompPowerTrader CPT { get; set; }
 
         public List<GlowGridCache> ColorCellIndexCache { get; set; }
 
@@ -40,7 +37,7 @@ namespace ppumkin.LEDTechnology.GlowFlooders
         /// </summary>
         public void Clear()
         {
-            Color32 noColor = new Color32(0,0,0,0);
+            Color32 noColor = new Color32(0, 0, 0, 0);
             foreach (var i in ColorCellIndexCache)
             {
                 Find.VisibleMap.glowGrid.glowGrid[i.CellGridIndex] = noColor;
@@ -102,9 +99,24 @@ namespace ppumkin.LEDTechnology.GlowFlooders
 
         private void updateGlowGrid()
         {
+            bool isCachingStale = false;
+
             foreach (var i in ColorCellIndexCache)
             {
-                Find.VisibleMap.glowGrid.glowGrid[i.CellGridIndex] = i.ColorAtCellIndex;
+                try
+                {
+                    Find.VisibleMap.glowGrid.glowGrid[i.CellGridIndex] = i.ColorAtCellIndex;
+                }
+                catch (Exception ex)
+                {
+                    Log.Message("HydroponicsFlooder.updateGlowGrid exception - Probably cache is stale so will reset it : " + ex.Message);
+                }
+
+                if (isCachingStale)
+                {
+                    Clear();
+                }
+
             }
         }
 
