@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-
+using RimWorld;
 using UnityEngine;
 using Verse;
-using RimWorld;
 
 namespace ppumkin.LEDTechnology.GlowFlooders
 {
@@ -247,13 +245,25 @@ namespace ppumkin.LEDTechnology.GlowFlooders
         private void updateGlowGrid()
         {
             //Log.Message("Anlge: start update glow grid using cache");
-
+            bool isCachingStale = false;
             //this is why I wanted a list to and not an array, saves some valuable CPU overhead
             foreach (var cell in ColorCellIndexCache.Where(x => !x.IsBlocked))
             {
-                Find.VisibleMap.glowGrid.glowGrid[cell.CellGridIndex] = cell.ColorAtCellIndex;
+                try
+                {
+                    Find.VisibleMap.glowGrid.glowGrid[cell.CellGridIndex] = cell.ColorAtCellIndex;
+                }
+                catch (Exception ex)
+                {
+                    Log.Message("AngledFlooder.updateGlowGrid exception - Probably cache is stale so will reset it : " + ex.Message);
+                    isCachingStale = true;
+                }
             }
 
+            if (isCachingStale)
+            {
+                ColorCellIndexCache.Clear();
+            }
 
             //for (int i = 0; i < ColorCellIndexCache.Count; i++)
             //{
