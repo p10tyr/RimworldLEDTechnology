@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Buildings>
+<Defs>
     <!--============================== Lights ==============================-->
     <ThingDef Abstract="True" Name="LampBase" ParentName="BuildingBase">
         <thingClass>Building</thingClass>
@@ -36,7 +36,7 @@
 	<ThingDef Abstract="True" Name="LEDStripLampBase" ParentName="LampBase">
 		 <building>
             <isInert>true</isInert>
-            <ignoreNeedsPower>false</ignoreNeedsPower>
+            <!--<ignoreNeedsPower>false</ignoreNeedsPower>-->
             <isEdifice>false</isEdifice>
         </building>
 		
@@ -246,4 +246,4 @@
         <terrainAffordanceNeeded>Heavy</terrainAffordanceNeeded>
         <designationCategory>LEDTechnology</designationCategory>
     </ThingDef>
-</Buildings>
+</Defs>
