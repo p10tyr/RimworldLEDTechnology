@@ -15,6 +15,7 @@ namespace ppumkin.LEDTechnology.GlowFlooders
         public Color32 Color { get; private set; }
         CompPower CP { get; set; }
         CompPowerTrader CPT { get; set; }
+        public int MapUniqueId { get; set; }
 
         public List<GlowGridCache> ColorCellIndexCache { get; set; }
 
@@ -27,6 +28,7 @@ namespace ppumkin.LEDTechnology.GlowFlooders
             CPT = compPowerTrader;
 
             ColorCellIndexCache = new List<GlowGridCache>();
+            MapUniqueId = Find.VisibleMap.uniqueID;
 
             Color = new Color32(191, 63, 191, 1);
         }
@@ -44,6 +46,8 @@ namespace ppumkin.LEDTechnology.GlowFlooders
                 //Find.MapDrawer.MapMeshDirty(thingPosition, MapMeshFlag.GroundGlow);
             }
             ColorCellIndexCache = new List<GlowGridCache>();
+
+            Find.VisibleMap.mapDrawer.MapMeshDirty(Position, MapMeshFlag.GroundGlow);
         }
 
 
@@ -99,24 +103,33 @@ namespace ppumkin.LEDTechnology.GlowFlooders
 
         private void updateGlowGrid()
         {
-            bool isCachingStale = false;
+            var visibleMap = Find.VisibleMap;
+
+            if (visibleMap.uniqueID != this.MapUniqueId)
+            {
+                Log.Safe($"This Thing was created on map '{this.MapUniqueId}' and you are currently on map {visibleMap.uniqueID} - Skipping rendering");
+
+                if (ColorCellIndexCache.Any())
+                {
+                    Log.Safe($"Clearing out any glow cells as they do not belong on this map");
+                    this.Clear();
+                }
+
+                return;
+            }
+
+            var visibleMapGlowGrid = visibleMap.glowGrid.glowGrid;
 
             foreach (var i in ColorCellIndexCache)
             {
                 try
                 {
-                    Find.VisibleMap.glowGrid.glowGrid[i.CellGridIndex] = i.ColorAtCellIndex;
+                    visibleMapGlowGrid[i.CellGridIndex] = i.ColorAtCellIndex;
                 }
                 catch (Exception ex)
                 {
-                    Log.Message("HydroponicsFlooder.updateGlowGrid exception - Probably cache is stale so will reset it : " + ex.Message);
+                    Log.Safe("HydroponicsFlooder.updateGlowGrid - exception - : " + ex.Message);
                 }
-
-                if (isCachingStale)
-                {
-                    Clear();
-                }
-
             }
         }
 
