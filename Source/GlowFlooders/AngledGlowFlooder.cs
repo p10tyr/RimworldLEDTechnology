@@ -15,8 +15,10 @@ namespace ppumkin.LEDTechnology.GlowFlooders
         public Color32 Color { get; private set; }
         CompPower CP { get; set; }
         CompPowerTrader CPT { get; set; }
+        public Map Map { get; set; }
 
         public List<GlowGridCache> ColorCellIndexCache { get; set; }
+
         //public List<FloodBlocker> FloodBlockers { get; set; }
 
         Thing[] innerArray;
@@ -25,12 +27,13 @@ namespace ppumkin.LEDTechnology.GlowFlooders
         int angleModulus;
 
 
-        public AngledGlowFlooder(IntVec3 position, Rot4 orientation, CompPower compPower, CompPowerTrader compPowerTrader)
+        public AngledGlowFlooder(IntVec3 position, Rot4 orientation, CompPower compPower, CompPowerTrader compPowerTrader, Map map)
         {
             Position = position;
             Orientation = orientation;
             CP = compPower;
             CPT = compPowerTrader;
+            Map = map;
 
             ColorCellIndexCache = new List<GlowGridCache>();
             //FloodBlockers = new List<FloodBlocker>();
@@ -38,11 +41,13 @@ namespace ppumkin.LEDTechnology.GlowFlooders
             //Color = new Color32(191, 63, 191, 1);
             Color = new Color32(254, 255, 179, 0);
 
-
-            innerArray = Find.VisibleMap.edificeGrid.InnerArray;
+            innerArray = Map.edificeGrid.InnerArray;
 
             targetDistance = 16;
             angleModulus = 2;  //0 is 90 and the higher you go the more narrow the angle. //angle 45 is every two tiles? - actually its 90 because left side is 0->45 and then right is 45<-0
+
+            Log.Safe($"AngledGlowFlooder created belongs on {Map.uniqueID} and we are on {Find.VisibleMap.uniqueID}  ");
+
         }
 
         public void CalculateGlowFlood()
@@ -62,10 +67,12 @@ namespace ppumkin.LEDTechnology.GlowFlooders
             Color32 noColor = new Color32(0, 0, 0, 0);
             foreach (var i in ColorCellIndexCache)
             {
-                Find.VisibleMap.glowGrid.glowGrid[i.CellGridIndex] = noColor;
+                Map.glowGrid.glowGrid[i.CellGridIndex] = noColor;
                 //Find.MapDrawer.MapMeshDirty(thingPosition, MapMeshFlag.GroundGlow);
             }
             ColorCellIndexCache = new List<GlowGridCache>();
+
+            //Find.VisibleMap.mapDrawer.MapMeshDirty(Position, MapMeshFlag.GroundGlow);
         }
 
 
@@ -205,9 +212,6 @@ namespace ppumkin.LEDTechnology.GlowFlooders
             return false;
         }
 
-
-
-
         public class FloodBlocker
         {
             public int Z { get; set; }
@@ -245,40 +249,24 @@ namespace ppumkin.LEDTechnology.GlowFlooders
         private void updateGlowGrid()
         {
             //Log.Message("Anlge: start update glow grid using cache");
-            bool isCachingStale = false;
+
+            //var visibleMapGlowGrid = visibleMap.Map.glowGrid.glowGrid;
+
             //this is why I wanted a list to and not an array, saves some valuable CPU overhead
             foreach (var cell in ColorCellIndexCache.Where(x => !x.IsBlocked))
             {
                 try
                 {
-                    Find.VisibleMap.glowGrid.glowGrid[cell.CellGridIndex] = cell.ColorAtCellIndex;
+                    Map.glowGrid.glowGrid[cell.CellGridIndex] = cell.ColorAtCellIndex;
                 }
                 catch (Exception ex)
                 {
-                    Log.Message("AngledFlooder.updateGlowGrid exception - Probably cache is stale so will reset it : " + ex.Message);
-                    isCachingStale = true;
+                    Log.Safe("AngledFlooder.updateGlowGrid exception - Probably cache is stale so will reset it : " + ex.Message);
                 }
             }
 
-            if (isCachingStale)
-            {
-                ColorCellIndexCache.Clear();
-            }
-
-            //for (int i = 0; i < ColorCellIndexCache.Count; i++)
-            //{
-            //    var pos = ColorCellIndexCache[i];
-            //    Find.GlowGrid.glowGrid[pos.CellGridIndex] = pos.ColorAtCellIndex;
-
-            //    //dont know if this is inneficeint or what but it works for long range lighting in this case
-            //    //Find.MapDrawer.MapMeshDirty(pos.Position, MapMeshFlag.GroundGlow);
-            //}
-
-            //Log.Message("Anlge: updated glowgrid from cache");
-            //Dont really want this here but the timing of this particulr object is wierd so I need to mark it dirty
-
             //In this case we need to mark several positions as dirty as the internal updated works with regions only
-            Find.VisibleMap.mapDrawer.MapMeshDirty(Position, MapMeshFlag.GroundGlow);
+            Map.mapDrawer.MapMeshDirty(Position, MapMeshFlag.GroundGlow);
         }
 
         public override string ToString()

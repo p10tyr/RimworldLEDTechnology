@@ -15,40 +15,48 @@ namespace ppumkin.LEDTechnology.GlowFlooders
         public Color32 Color { get; private set; }
         CompPower CP { get; set; }
         CompPowerTrader CPT { get; set; }
+        public Map Map { get; set; }
 
         public List<GlowGridCache> ColorCellIndexCache { get; set; }
 
 
-        public HydroponicsFlooder(IntVec3 position, Rot4 orientation, CompPower compPower, CompPowerTrader compPowerTrader)
+        public HydroponicsFlooder(IntVec3 position, Rot4 orientation, CompPower compPower, CompPowerTrader compPowerTrader, Map map)
         {
             Position = position;
             Orientation = orientation;
             CP = compPower;
             CPT = compPowerTrader;
+            Map = map;
 
             ColorCellIndexCache = new List<GlowGridCache>();
 
             Color = new Color32(191, 63, 191, 1);
-        }
 
+            Log.Safe($"HydroponicsFlooder belongs on {Map.uniqueID} and we are on {Find.VisibleMap.uniqueID}  ");
+        }
 
         /// <summary>
         /// Clears the grid from any colors and dumps the cache.
         /// </summary>
         public void Clear()
         {
+            Log.Safe("HydroponicsFlooder Clear");
+
             Color32 noColor = new Color32(0, 0, 0, 0);
+
             foreach (var i in ColorCellIndexCache)
             {
-                Find.VisibleMap.glowGrid.glowGrid[i.CellGridIndex] = noColor;
+                Map.glowGrid.glowGrid[i.CellGridIndex] = noColor;
                 //Find.MapDrawer.MapMeshDirty(thingPosition, MapMeshFlag.GroundGlow);
             }
+
             ColorCellIndexCache = new List<GlowGridCache>();
         }
 
 
         public void CalculateGlowFlood()
         {
+            Log.Safe("HydroponicsFlooder CalculateGlowFlood start");
 
             if (this.CP == null || this.CP.PowerNet == null)
                 return;
@@ -58,6 +66,8 @@ namespace ppumkin.LEDTechnology.GlowFlooders
 
             //if (!LEDTools.IsGridGlowing(thisPosition))
             //    return;
+
+            Log.Safe("HydroponicsFlooder CompPower OK PowerNet OK");
 
             if (ColorCellIndexCache.Count > 0)
                 updateGlowGrid();
@@ -93,31 +103,30 @@ namespace ppumkin.LEDTechnology.GlowFlooders
                     break;
 
             }
+
+            Log.Safe("HydroponicsFlooder Calculated ColorCellIndexCache");
+
             updateGlowGrid();
         }
 
 
         private void updateGlowGrid()
         {
-            bool isCachingStale = false;
+            Log.Safe("HydroponicsFlooder.updateGlowGrid using ColorCellIndexCache");
 
             foreach (var i in ColorCellIndexCache)
             {
                 try
                 {
-                    Find.VisibleMap.glowGrid.glowGrid[i.CellGridIndex] = i.ColorAtCellIndex;
+                    Map.glowGrid.glowGrid[i.CellGridIndex] = i.ColorAtCellIndex;
                 }
                 catch (Exception ex)
                 {
-                    Log.Message("HydroponicsFlooder.updateGlowGrid exception - Probably cache is stale so will reset it : " + ex.Message);
+                    Log.Safe("HydroponicsFlooder.updateGlowGrid - exception - : " + ex.Message);
                 }
-
-                if (isCachingStale)
-                {
-                    Clear();
-                }
-
             }
+
+            //Map.mapDrawer.MapMeshDirty(Position, MapMeshFlag.GroundGlow);
         }
 
         public override string ToString()

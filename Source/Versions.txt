@@ -1,5 +1,11 @@
 ﻿##CODE##
 
+
+0.15 29/01/2018
+Better logging to stop performance drops on massive issues
+Fix for multimap glow tile issues
+
+
 0.10 29/09/2016
 Updated spotlight sprite
 Enabled drag and place for LED's

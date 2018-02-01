@@ -1,7 +1,0 @@
-D:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\LEDTechnology\Source\obj\Debug\LEDTechnology.csprojResolveAssemblyReference.cache
-D:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\LEDTechnology\Assemblies\ppumkin.LEDTechnology.dll
-D:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\LEDTechnology\Source\obj\Debug\ppumkin.LEDTechnology.dll
-C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\RimworldLEDTechnology\Source\obj\Debug\LEDTechnology.csprojResolveAssemblyReference.cache
-C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\RimworldLEDTechnology\Assemblies\ppumkin.LEDTechnology.dll
-C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\RimworldLEDTechnology\Source\obj\Debug\ppumkin.LEDTechnology.dll
-C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\RimworldLEDTechnology\Source\obj\Debug\LEDTechnology.csproj.CoreCompileInputs.cache
