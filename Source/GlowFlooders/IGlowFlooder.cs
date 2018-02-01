@@ -1,22 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 
 using UnityEngine;
 using Verse;
-using RimWorld;
 
 namespace ppumkin.LEDTechnology.GlowFlooders
 {
     public interface IGlowFlooder
     {
         List<GlowGridCache> ColorCellIndexCache { get; set; }
-
         void CalculateGlowFlood();
         void Clear();
     }
-
 
     /// <summary>
     /// All values in here must be provided and calcualted. This serves as a cache to prevent recalculating glowers again

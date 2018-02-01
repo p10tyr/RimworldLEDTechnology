@@ -15,44 +15,48 @@ namespace ppumkin.LEDTechnology.GlowFlooders
         public Color32 Color { get; private set; }
         CompPower CP { get; set; }
         CompPowerTrader CPT { get; set; }
-        public int MapUniqueId { get; set; }
+        public Map Map { get; set; }
 
         public List<GlowGridCache> ColorCellIndexCache { get; set; }
 
 
-        public HydroponicsFlooder(IntVec3 position, Rot4 orientation, CompPower compPower, CompPowerTrader compPowerTrader)
+        public HydroponicsFlooder(IntVec3 position, Rot4 orientation, CompPower compPower, CompPowerTrader compPowerTrader, Map map)
         {
             Position = position;
             Orientation = orientation;
             CP = compPower;
             CPT = compPowerTrader;
+            Map = map;
 
             ColorCellIndexCache = new List<GlowGridCache>();
-            MapUniqueId = Find.VisibleMap.uniqueID;
 
             Color = new Color32(191, 63, 191, 1);
-        }
 
+            Log.Safe($"HydroponicsFlooder belongs on {Map.uniqueID} and we are on {Find.VisibleMap.uniqueID}  ");
+        }
 
         /// <summary>
         /// Clears the grid from any colors and dumps the cache.
         /// </summary>
         public void Clear()
         {
+            Log.Safe("HydroponicsFlooder Clear");
+
             Color32 noColor = new Color32(0, 0, 0, 0);
+
             foreach (var i in ColorCellIndexCache)
             {
-                Find.VisibleMap.glowGrid.glowGrid[i.CellGridIndex] = noColor;
+                Map.glowGrid.glowGrid[i.CellGridIndex] = noColor;
                 //Find.MapDrawer.MapMeshDirty(thingPosition, MapMeshFlag.GroundGlow);
             }
-            ColorCellIndexCache = new List<GlowGridCache>();
 
-            Find.VisibleMap.mapDrawer.MapMeshDirty(Position, MapMeshFlag.GroundGlow);
+            ColorCellIndexCache = new List<GlowGridCache>();
         }
 
 
         public void CalculateGlowFlood()
         {
+            Log.Safe("HydroponicsFlooder CalculateGlowFlood start");
 
             if (this.CP == null || this.CP.PowerNet == null)
                 return;
@@ -62,6 +66,8 @@ namespace ppumkin.LEDTechnology.GlowFlooders
 
             //if (!LEDTools.IsGridGlowing(thisPosition))
             //    return;
+
+            Log.Safe("HydroponicsFlooder CompPower OK PowerNet OK");
 
             if (ColorCellIndexCache.Count > 0)
                 updateGlowGrid();
@@ -97,40 +103,30 @@ namespace ppumkin.LEDTechnology.GlowFlooders
                     break;
 
             }
+
+            Log.Safe("HydroponicsFlooder Calculated ColorCellIndexCache");
+
             updateGlowGrid();
         }
 
 
         private void updateGlowGrid()
         {
-            var visibleMap = Find.VisibleMap;
-
-            if (visibleMap.uniqueID != this.MapUniqueId)
-            {
-                Log.Safe($"This Thing was created on map '{this.MapUniqueId}' and you are currently on map {visibleMap.uniqueID} - Skipping rendering");
-
-                if (ColorCellIndexCache.Any())
-                {
-                    Log.Safe($"Clearing out any glow cells as they do not belong on this map");
-                    this.Clear();
-                }
-
-                return;
-            }
-
-            var visibleMapGlowGrid = visibleMap.glowGrid.glowGrid;
+            Log.Safe("HydroponicsFlooder.updateGlowGrid using ColorCellIndexCache");
 
             foreach (var i in ColorCellIndexCache)
             {
                 try
                 {
-                    visibleMapGlowGrid[i.CellGridIndex] = i.ColorAtCellIndex;
+                    Map.glowGrid.glowGrid[i.CellGridIndex] = i.ColorAtCellIndex;
                 }
                 catch (Exception ex)
                 {
                     Log.Safe("HydroponicsFlooder.updateGlowGrid - exception - : " + ex.Message);
                 }
             }
+
+            //Map.mapDrawer.MapMeshDirty(Position, MapMeshFlag.GroundGlow);
         }
 
         public override string ToString()

@@ -7,7 +7,6 @@ namespace ppumkin.LEDTechnology
 {
     public class LEDSpotLight : Building
     {
-
         AngledGlowFlooder thisFlooder;
 
         public override void SpawnSetup(Map map, bool respawn)
@@ -37,7 +36,7 @@ namespace ppumkin.LEDTechnology
 
         private void registerFlooder()
         {
-            thisFlooder = new AngledGlowFlooder(this.Position, this.Rotation, this.PowerComp, base.GetComp<CompPowerTrader>());
+            thisFlooder = new AngledGlowFlooder(this.Position, this.Rotation, this.PowerComp, base.GetComp<CompPowerTrader>(), this.Map);
             CustomGlowFloodManager.RegisterFlooder(thisFlooder);
         }
 

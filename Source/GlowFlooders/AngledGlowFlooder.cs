@@ -15,10 +15,10 @@ namespace ppumkin.LEDTechnology.GlowFlooders
         public Color32 Color { get; private set; }
         CompPower CP { get; set; }
         CompPowerTrader CPT { get; set; }
+        public Map Map { get; set; }
 
         public List<GlowGridCache> ColorCellIndexCache { get; set; }
 
-        public int MapUniqueId { get; set; }
         //public List<FloodBlocker> FloodBlockers { get; set; }
 
         Thing[] innerArray;
@@ -27,12 +27,13 @@ namespace ppumkin.LEDTechnology.GlowFlooders
         int angleModulus;
 
 
-        public AngledGlowFlooder(IntVec3 position, Rot4 orientation, CompPower compPower, CompPowerTrader compPowerTrader)
+        public AngledGlowFlooder(IntVec3 position, Rot4 orientation, CompPower compPower, CompPowerTrader compPowerTrader, Map map)
         {
             Position = position;
             Orientation = orientation;
             CP = compPower;
             CPT = compPowerTrader;
+            Map = map;
 
             ColorCellIndexCache = new List<GlowGridCache>();
             //FloodBlockers = new List<FloodBlocker>();
@@ -40,11 +41,13 @@ namespace ppumkin.LEDTechnology.GlowFlooders
             //Color = new Color32(191, 63, 191, 1);
             Color = new Color32(254, 255, 179, 0);
 
-            innerArray = Find.VisibleMap.edificeGrid.InnerArray;
-            MapUniqueId = Find.VisibleMap.uniqueID;
+            innerArray = Map.edificeGrid.InnerArray;
 
             targetDistance = 16;
             angleModulus = 2;  //0 is 90 and the higher you go the more narrow the angle. //angle 45 is every two tiles? - actually its 90 because left side is 0->45 and then right is 45<-0
+
+            Log.Safe($"AngledGlowFlooder created belongs on {Map.uniqueID} and we are on {Find.VisibleMap.uniqueID}  ");
+
         }
 
         public void CalculateGlowFlood()
@@ -64,12 +67,12 @@ namespace ppumkin.LEDTechnology.GlowFlooders
             Color32 noColor = new Color32(0, 0, 0, 0);
             foreach (var i in ColorCellIndexCache)
             {
-                Find.VisibleMap.glowGrid.glowGrid[i.CellGridIndex] = noColor;
+                Map.glowGrid.glowGrid[i.CellGridIndex] = noColor;
                 //Find.MapDrawer.MapMeshDirty(thingPosition, MapMeshFlag.GroundGlow);
             }
             ColorCellIndexCache = new List<GlowGridCache>();
 
-            Find.VisibleMap.mapDrawer.MapMeshDirty(Position, MapMeshFlag.GroundGlow);
+            //Find.VisibleMap.mapDrawer.MapMeshDirty(Position, MapMeshFlag.GroundGlow);
         }
 
 
@@ -247,29 +250,14 @@ namespace ppumkin.LEDTechnology.GlowFlooders
         {
             //Log.Message("Anlge: start update glow grid using cache");
 
-            var visibleMap = Find.VisibleMap;
-
-            if (visibleMap.uniqueID != this.MapUniqueId)
-            {
-                Log.Safe($"This Thing was created on map '{this.MapUniqueId}' and you are currently on map {visibleMap.uniqueID} - Skipping rendering");
-
-                if (ColorCellIndexCache.Any())
-                {
-                    Log.Safe($"Clearing out any glow cells as they do not belong on this map");
-                    this.Clear();
-                }
-
-                return;
-            }
-
-            var visibleMapGlowGrid = visibleMap.glowGrid.glowGrid;
+            //var visibleMapGlowGrid = visibleMap.Map.glowGrid.glowGrid;
 
             //this is why I wanted a list to and not an array, saves some valuable CPU overhead
             foreach (var cell in ColorCellIndexCache.Where(x => !x.IsBlocked))
             {
                 try
                 {
-                    visibleMapGlowGrid[cell.CellGridIndex] = cell.ColorAtCellIndex;
+                    Map.glowGrid.glowGrid[cell.CellGridIndex] = cell.ColorAtCellIndex;
                 }
                 catch (Exception ex)
                 {
@@ -278,7 +266,7 @@ namespace ppumkin.LEDTechnology.GlowFlooders
             }
 
             //In this case we need to mark several positions as dirty as the internal updated works with regions only
-            Find.VisibleMap.mapDrawer.MapMeshDirty(Position, MapMeshFlag.GroundGlow);
+            Map.mapDrawer.MapMeshDirty(Position, MapMeshFlag.GroundGlow);
         }
 
         public override string ToString()
