@@ -2,12 +2,12 @@
 {
     public static class Log
     {
-        public static bool IsTurnedOn = false;
+        public static bool DisableLogging = true;
         public static int LogEntries = 0;
 
         public static void Safe(string message, bool trace = false)
         {
-            if (!IsTurnedOn)
+            if (DisableLogging)
                 return;
 
             LogEntries++;
