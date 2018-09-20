@@ -4,14 +4,14 @@
     <ThingDef Abstract="True" Name="LampBase" ParentName="BuildingBase">
         <thingClass>Building</thingClass>
         <category>Building</category>
-        <minifiedDef>MinifiedFurniture</minifiedDef>
+        <minifiedDef>MinifiedThing</minifiedDef>
         <altitudeLayer>Building</altitudeLayer>
         <passability>PassThroughOnly</passability>
         <selectable>true</selectable>
         <fillPercent>0.20</fillPercent>
      
         <leaveResourcesWhenKilled>false</leaveResourcesWhenKilled>
-        <soundImpactDefault>BulletImpactMetal</soundImpactDefault>
+        <soundImpactDefault>BulletImpact_Metal</soundImpactDefault>
         <rotatable>true</rotatable>
        
 	    <graphicData>
@@ -71,9 +71,11 @@
 			</linkFlags>
         </graphicData>
 		
-		<blueprintGraphicData>
-			<texPath>Things/Building/LED/LEDCentre/LEDStrip_Blueprint_Atlas</texPath>
-		</blueprintGraphicData>
+		<building>
+			<blueprintGraphicData>
+				<texPath>Things/Building/LED/LEDCentre/LEDStrip_Blueprint_Atlas</texPath>
+			</blueprintGraphicData>
+		</building>
 		
 		 <comps>
             <li Class="CompProperties_Power">
@@ -222,11 +224,10 @@
         <costList>
             <Steel>65</Steel>
             <Silver>8</Silver>
-            <Component>1</Component>
         </costList>
         <fertility>2.0</fertility>
         <building>
-            <defaultPlantToGrow>PlantPotato</defaultPlantToGrow>
+            <defaultPlantToGrow>Plant_Potato</defaultPlantToGrow>
             <sowTag>Hydroponic</sowTag>
         </building>
         <tickerType>Rare</tickerType>
