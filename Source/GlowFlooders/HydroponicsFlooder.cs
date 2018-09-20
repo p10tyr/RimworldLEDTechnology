@@ -32,7 +32,7 @@ namespace ppumkin.LEDTechnology.GlowFlooders
 
             Color = new Color32(191, 63, 191, 1);
 
-            Log.Safe($"HydroponicsFlooder belongs on {Map.uniqueID} and we are on {Find.VisibleMap.uniqueID}  ");
+            Log.Safe($"HydroponicsFlooder belongs on {Map.uniqueID} and we are on {Find.CurrentMap.uniqueID}  ");
         }
 
         /// <summary>

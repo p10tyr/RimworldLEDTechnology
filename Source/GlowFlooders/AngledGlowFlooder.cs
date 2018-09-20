@@ -46,7 +46,7 @@ namespace ppumkin.LEDTechnology.GlowFlooders
             targetDistance = 16;
             angleModulus = 2;  //0 is 90 and the higher you go the more narrow the angle. //angle 45 is every two tiles? - actually its 90 because left side is 0->45 and then right is 45<-0
 
-            Log.Safe($"AngledGlowFlooder created belongs on {Map.uniqueID} and we are on {Find.VisibleMap.uniqueID}  ");
+            Log.Safe($"AngledGlowFlooder created belongs on {Map.uniqueID} and we are on {Find.CurrentMap.uniqueID}  ");
 
         }
 
@@ -120,7 +120,7 @@ namespace ppumkin.LEDTechnology.GlowFlooders
                 {
                     //Log.Message("distance: " + distance + " xD:" + x + " zD:" + z + " mod:" + distance % 3);
                     var _pos = Position.ToOffsetPositionDirection(distance, angleDelta, this.Orientation);
-                    if (_pos.InBounds(Find.VisibleMap))
+                    if (_pos.InBounds(Find.CurrentMap))
                     {
                         ////Log.Message("Block?: X:" + _pos.x + " Z: " + _pos.z);
                         if (isBlocked(_pos, angleDelta))
@@ -160,7 +160,7 @@ namespace ppumkin.LEDTechnology.GlowFlooders
 
         private bool isBlocked(IntVec3 position, int angleDelta)
         {
-            var ci = Find.VisibleMap.cellIndices;
+            var ci = Find.CurrentMap.cellIndices;
             var thingBlockers = innerArray[ci.CellToIndex(position)];
             if (thingBlockers != null)
             {

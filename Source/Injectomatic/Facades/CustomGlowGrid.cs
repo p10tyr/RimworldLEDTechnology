@@ -30,7 +30,7 @@ namespace ppumkin.LEDTechnology.Injectomatic.Facades
             //Log.Message("_initialGlowerLocs was NOT NULL and returning value");
             //return (List<IntVec3>)_initialGlowerLocs.GetValue(_initialGlowerLocs);
 
-            var data = Find.VisibleMap.glowGrid;
+            var data = Find.CurrentMap.glowGrid;
             //FieldInfo[] fields = data.GetType().GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
             //foreach (FieldInfo f in fields)
             //{
@@ -62,7 +62,7 @@ namespace ppumkin.LEDTechnology.Injectomatic.Facades
             //Log.Message("_initialGlowerLocs was NOT NULL and returning value");
             //return (List<IntVec3>)_initialGlowerLocs.GetValue(_initialGlowerLocs);
 
-            var data = Find.VisibleMap.glowGrid;
+            var data = Find.CurrentMap.glowGrid;
             //FieldInfo[] fields = data.GetType().GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
             //foreach (FieldInfo f in fields)
             //{
@@ -85,7 +85,7 @@ namespace ppumkin.LEDTechnology.Injectomatic.Facades
         {
             //Log.Message("CustomGlowGrid: RecalculateAllGlow()");
 
-            var glowFlooder = Find.VisibleMap.glowFlooder;
+            var glowFlooder = Find.CurrentMap.glowFlooder;
             var initialGlowerLocs = _GlowerGridPropertyHelper.InitialGlowerLocs();
             //Log.Message("InitialGlowerLocs count: " + initialGlowerLocs.Count );
             var litGlowers = _GlowerGridPropertyHelper.LitGlowers();
@@ -102,22 +102,22 @@ namespace ppumkin.LEDTechnology.Injectomatic.Facades
             {
                 foreach (IntVec3 current in initialGlowerLocs)
                 {
-                    Find.VisibleMap.glowGrid.MarkGlowGridDirty(current);
+                    Find.CurrentMap.glowGrid.MarkGlowGridDirty(current);
                 }
                 initialGlowerLocs = null;
             }
             //Log.Message("CustomGlowGrid: MarkGlowGridDirty(IntVec3)");
 
-            var ci = Find.VisibleMap.cellIndices;
+            var ci = Find.CurrentMap.cellIndices;
             for (int i = 0; i < ci.NumGridCells; i++)
             {
-                Find.VisibleMap.glowGrid.glowGrid[i] = new Color32(0, 0, 0, 0); //luckily this was public.. phew :)
+                Find.CurrentMap.glowGrid.glowGrid[i] = new Color32(0, 0, 0, 0); //luckily this was public.. phew :)
             }
             //Log.Message("CustomGlowGrid: Cleared grid cells with RGB(0,0,0,0)");
 
             foreach (CompGlower current2 in litGlowers)
             {
-                glowFlooder.AddFloodGlowFor(current2, Find.VisibleMap.glowGrid.glowGrid);
+                glowFlooder.AddFloodGlowFor(current2, Find.CurrentMap.glowGrid.glowGrid);
             }
             //Log.Message("CustomGlowGrid: Recalculated the original flood glower");
 
