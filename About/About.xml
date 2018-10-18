@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ModMetaData>
-  <name>LED Technology [B19]</name>
+  <name>LED Technology [V1.0]</name>
   <author>Piotr Kula</author>
   <url>https://github.com/ppumkin/RimworldLEDTechnology</url>
-  <targetVersion>0.19.2009</targetVersion>
+  <targetVersion>1.0.2059</targetVersion>
   <description>
 A pack consisting of LED Technology.  [Version 0.16]
      

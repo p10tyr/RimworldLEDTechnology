@@ -3,7 +3,9 @@
     <!--============================== Lights ==============================-->
     <ThingDef Abstract="True" Name="LampBase" ParentName="BuildingBase">
         <thingClass>Building</thingClass>
-        <category>Building</category>
+		<thingCategories>
+          <li>BuildingsSecurity</li>
+        </thingCategories>
         <minifiedDef>MinifiedThing</minifiedDef>
         <altitudeLayer>Building</altitudeLayer>
         <passability>PassThroughOnly</passability>
@@ -21,11 +23,15 @@
         <comps>
             <li Class="CompProperties_Flickable"/>
         </comps>
+		
         <statBases>
             <MaxHitPoints>25</MaxHitPoints>
             <WorkToMake>250</WorkToMake>
             <Flammability>1.0</Flammability>
+			<Mass>1</Mass>
+			<Beauty>3</Beauty>
         </statBases>
+		
         <researchPrerequisites>
             <li>LEDTechnologyScience</li>
         </researchPrerequisites>
@@ -34,7 +40,7 @@
 	
 	
 	<ThingDef Abstract="True" Name="LEDStripLampBase" ParentName="LampBase">
-		 <building>
+		<building>
             <isInert>true</isInert>
             <!--<ignoreNeedsPower>false</ignoreNeedsPower>-->
             <isEdifice>false</isEdifice>
@@ -50,7 +56,7 @@
             <Steel>1</Steel>
             <Silver>1</Silver>
         </costList>
-		 
+
 	</ThingDef>
 	
 	
