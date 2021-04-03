@@ -1,14 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Reflection;
+using ppumkin.LEDTechnology.Managers;
 using UnityEngine;
 using Verse;
 
 namespace ppumkin.LEDTechnology.Injectomatic.Facades
 {
-
     public class _GlowerGridPropertyHelper
     {
-
         //private FieldInfo _initialGlowerLocs;
         //private static FieldInfo _litGlowers;
 
@@ -25,7 +24,8 @@ namespace ppumkin.LEDTechnology.Injectomatic.Facades
             //    }
             //}
 
-            var _initialGlowerLocs = typeof(GlowGrid).GetField("litGlowers", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
+            var _initialGlowerLocs = typeof(GlowGrid).GetField("litGlowers",
+                BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
 
             //Log.Message("_initialGlowerLocs was NOT NULL and returning value");
             //return (List<IntVec3>)_initialGlowerLocs.GetValue(_initialGlowerLocs);
@@ -38,7 +38,7 @@ namespace ppumkin.LEDTechnology.Injectomatic.Facades
             //}
 
 
-            return (HashSet<CompGlower>)_initialGlowerLocs.GetValue(data);
+            return (HashSet<CompGlower>) _initialGlowerLocs?.GetValue(data);
         }
 
         public static List<IntVec3> InitialGlowerLocs()
@@ -57,7 +57,8 @@ namespace ppumkin.LEDTechnology.Injectomatic.Facades
             //    }
             //}
 
-            var _initialGlowerLocs = typeof(GlowGrid).GetField("initialGlowerLocs", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
+            var _initialGlowerLocs = typeof(GlowGrid).GetField("initialGlowerLocs",
+                BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
 
             //Log.Message("_initialGlowerLocs was NOT NULL and returning value");
             //return (List<IntVec3>)_initialGlowerLocs.GetValue(_initialGlowerLocs);
@@ -69,17 +70,15 @@ namespace ppumkin.LEDTechnology.Injectomatic.Facades
             //    Log.Message(f.Name + " = " + f.GetValue(data));
             //}
 
-            return (List<IntVec3>)_initialGlowerLocs.GetValue(data);
-
+            return (List<IntVec3>) _initialGlowerLocs?.GetValue(data);
         }
     }
 
 
     public static class CustomGlowGrid
     {
-
         /// <summary>
-        /// Injected method jump use only
+        ///     Injected method jump use only
         /// </summary>
         public static void _RecalculateAllGlow()
         {
@@ -98,24 +97,26 @@ namespace ppumkin.LEDTechnology.Injectomatic.Facades
             {
                 return;
             }
+
             if (initialGlowerLocs != null)
             {
-                foreach (IntVec3 current in initialGlowerLocs)
+                foreach (var current in initialGlowerLocs)
                 {
                     Find.CurrentMap.glowGrid.MarkGlowGridDirty(current);
                 }
+
                 initialGlowerLocs = null;
             }
             //Log.Message("CustomGlowGrid: MarkGlowGridDirty(IntVec3)");
 
             var ci = Find.CurrentMap.cellIndices;
-            for (int i = 0; i < ci.NumGridCells; i++)
+            for (var i = 0; i < ci.NumGridCells; i++)
             {
                 Find.CurrentMap.glowGrid.glowGrid[i] = new Color32(0, 0, 0, 0); //luckily this was public.. phew :)
             }
             //Log.Message("CustomGlowGrid: Cleared grid cells with RGB(0,0,0,0)");
 
-            foreach (CompGlower current2 in litGlowers)
+            foreach (var current2 in litGlowers)
             {
                 glowFlooder.AddFloodGlowFor(current2, Find.CurrentMap.glowGrid.glowGrid);
             }
@@ -128,9 +129,8 @@ namespace ppumkin.LEDTechnology.Injectomatic.Facades
             //to make using the XML documents and then later that you can use C# to make even nicer one.
             //So from opening VisualStudio and loading in the Rimworld DLL for the first time, first time looking at the code and hardly any documents, 20 man hours later
             //I finally got this in here.
-            Managers.CustomGlowFloodManager.RefreshGlowFlooders();
+            CustomGlowFloodManager.RefreshGlowFlooders();
             //Log.Message("CustomGlowGrid: Recalculated universal glowers");
         }
     }
-
 }

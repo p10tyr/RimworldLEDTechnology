@@ -1,17 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-using UnityEngine;
-using Verse;
-using RimWorld;
+﻿using Verse;
 
 namespace ppumkin.LEDTechnology
 {
     public static class LEDTools
     {
-
         public static IntVec3 OffsetPosition(IntVec3 thingPosition, int offsetX, int offsetZ)
         {
             thingPosition.x += offsetX;
@@ -21,10 +13,13 @@ namespace ppumkin.LEDTechnology
         }
 
 
-        public static IntVec3 ToOffsetPositionDirection(this IntVec3 thingPosition, int ForwardBackward, int LeftRight, Rot4 orientation)
+        public static IntVec3 ToOffsetPositionDirection(this IntVec3 thingPosition, int ForwardBackward, int LeftRight,
+            Rot4 orientation)
         {
-            if (ForwardBackward == 0 & LeftRight == 0)
+            if ((ForwardBackward == 0) & (LeftRight == 0))
+            {
                 return thingPosition;
+            }
 
             if (orientation == Rot4.North)
             {
@@ -40,25 +35,27 @@ namespace ppumkin.LEDTechnology
 
             if (orientation == Rot4.South)
             {
-                thingPosition.x += (LeftRight * -1);
-                thingPosition.z += (ForwardBackward * -1);
+                thingPosition.x += LeftRight * -1;
+                thingPosition.z += ForwardBackward * -1;
             }
 
+            // ReSharper disable once InvertIf
             if (orientation == Rot4.West)
             {
-                thingPosition.x += (ForwardBackward * -1);
-                thingPosition.z += (LeftRight * -1);
+                thingPosition.x += ForwardBackward * -1;
+                thingPosition.z += LeftRight * -1;
             }
 
             return thingPosition;
         }
 
         /// <summary>
-        /// Returns the next cell position based on the rotation of the thing, as if going away from the start in the the orientaion direction
+        ///     Returns the next cell position based on the rotation of the thing, as if going away from the start in the the
+        ///     orientaion direction
         /// </summary>
-        public static IntVec3 TranslateDirection(this IntVec3 thingPosition, Rot4 orientation, int LeftRight = 0, bool backwards = false)
+        public static IntVec3 TranslateDirection(this IntVec3 thingPosition, Rot4 orientation, int LeftRight = 0,
+            bool backwards = false)
         {
-
             if (orientation == Rot4.North)
             {
                 thingPosition.x += LeftRight;
@@ -77,6 +74,7 @@ namespace ppumkin.LEDTechnology
                 thingPosition.z += backwards ? 1 : -1;
             }
 
+            // ReSharper disable once InvertIf
             if (orientation == Rot4.West)
             {
                 thingPosition.x += backwards ? 1 : -1;
@@ -84,7 +82,6 @@ namespace ppumkin.LEDTechnology
             }
 
             return thingPosition;
-
         }
 
         //public static void SetGridGlow(IntVec3 thingPosition, Color32 color, int offsetX = 0, int offsetZ = 0)
@@ -99,9 +96,9 @@ namespace ppumkin.LEDTechnology
         public static bool IsGridCellGlowing(IntVec3 thingPosition)
         {
             var ci = Find.CurrentMap.cellIndices;
-            Color32 gridColor = Find.CurrentMap.glowGrid.glowGrid[ci.CellToIndex(thingPosition)];
+            var gridColor = Find.CurrentMap.glowGrid.glowGrid[ci.CellToIndex(thingPosition)];
             //Log.Message("IsGridGlowing Color: " + gridColor.ToString() + " Postion: " + thingPosition);
-            return (gridColor.r != 0 & gridColor.r != 0 & gridColor.r != 0);
+            return (gridColor.r != 0) & (gridColor.r != 0) & (gridColor.r != 0);
         }
 
         public static int AsCellIndex(this IntVec3 position)
@@ -116,5 +113,3 @@ namespace ppumkin.LEDTechnology
         }
     }
 }
-
-
