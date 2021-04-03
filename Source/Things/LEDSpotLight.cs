@@ -7,7 +7,7 @@ namespace ppumkin.LEDTechnology
 {
     public class LEDSpotLight : Building
     {
-        AngledGlowFlooder thisFlooder;
+        private AngledGlowFlooder thisFlooder;
 
         public override void SpawnSetup(Map map, bool respawn)
         {
@@ -21,13 +21,17 @@ namespace ppumkin.LEDTechnology
             if (signal == "PowerTurnedOn")
             {
                 if (!CustomGlowFloodManager.IsGlowerRegistered(thisFlooder))
+                {
                     registerFlooder();
+                }
 
                 thisFlooder.CalculateGlowFlood();
             }
 
             if (signal == "PowerTurnedOff")
+            {
                 CustomGlowFloodManager.DeRegisterGlower(thisFlooder);
+            }
 
             //we need to force a lighting refresh manually here
             CustomGlowFloodManager.RefreshGlowFlooders();
@@ -36,9 +40,8 @@ namespace ppumkin.LEDTechnology
 
         private void registerFlooder()
         {
-            thisFlooder = new AngledGlowFlooder(this.Position, this.Rotation, this.PowerComp, base.GetComp<CompPowerTrader>(), this.Map);
+            thisFlooder = new AngledGlowFlooder(Position, Rotation, PowerComp, GetComp<CompPowerTrader>(), Map);
             CustomGlowFloodManager.RegisterFlooder(thisFlooder);
         }
-
     }
 }

@@ -8,9 +8,8 @@ namespace ppumkin.LEDTechnology
 {
     public class LEDHydroponicsBasin : Building_PlantGrower
     {
-
         //private CompPowerTrader compPower;
-        HydroponicsFlooder hydroponicsFlooder;
+        private HydroponicsFlooder hydroponicsFlooder;
 
         public override void SpawnSetup(Map map, bool respawn)
         {
@@ -19,20 +18,19 @@ namespace ppumkin.LEDTechnology
             registerFlooder();
         }
 
-        public override void TickRare()
-        {
-            base.TickRare();
-        }
-
         protected override void ReceiveCompSignal(string signal)
         {
             Log.Safe("LEDHydroponicsBasin Signal:" + signal);
 
             if (signal == "PowerTurnedOn")
+            {
                 hydroponicsFlooder.CalculateGlowFlood();
+            }
 
             if (signal == "PowerTurnedOff")
+            {
                 hydroponicsFlooder.Clear();
+            }
 
             //we need to force a lighting refresh manually here
             CustomGlowFloodManager.RefreshGlowFlooders();
@@ -40,16 +38,15 @@ namespace ppumkin.LEDTechnology
 
         public override string GetInspectString()
         {
-            string text = base.GetInspectString();
+            var text = base.GetInspectString();
             text = text + "..!!!";
             return text;
         }
 
         private void registerFlooder()
         {
-            hydroponicsFlooder = new HydroponicsFlooder(this.Position, this.Rotation, this.PowerComp, base.GetComp<CompPowerTrader>(), this.Map);
+            hydroponicsFlooder = new HydroponicsFlooder(Position, Rotation, PowerComp, GetComp<CompPowerTrader>(), Map);
             CustomGlowFloodManager.RegisterFlooder(hydroponicsFlooder);
         }
-
     }
 }

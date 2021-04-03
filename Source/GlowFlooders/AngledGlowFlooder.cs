@@ -9,25 +9,17 @@ namespace ppumkin.LEDTechnology.GlowFlooders
 {
     public class AngledGlowFlooder : IGlowFlooder
     {
-        public IntVec3 Position { get; private set; }
-
-        public Rot4 Orientation { get; private set; }
-        public Color32 Color { get; private set; }
-        CompPower CP { get; set; }
-        CompPowerTrader CPT { get; set; }
-        public Map Map { get; set; }
-
-        public List<GlowGridCache> ColorCellIndexCache { get; set; }
+        private readonly int angleModulus;
 
         //public List<FloodBlocker> FloodBlockers { get; set; }
 
-        Thing[] innerArray;
+        private readonly Building[] innerArray;
 
-        int targetDistance;
-        int angleModulus;
+        private readonly int targetDistance;
 
 
-        public AngledGlowFlooder(IntVec3 position, Rot4 orientation, CompPower compPower, CompPowerTrader compPowerTrader, Map map)
+        public AngledGlowFlooder(IntVec3 position, Rot4 orientation, CompPower compPower,
+            CompPowerTrader compPowerTrader, Map map)
         {
             Position = position;
             Orientation = orientation;
@@ -44,11 +36,21 @@ namespace ppumkin.LEDTechnology.GlowFlooders
             innerArray = Map.edificeGrid.InnerArray;
 
             targetDistance = 16;
-            angleModulus = 2;  //0 is 90 and the higher you go the more narrow the angle. //angle 45 is every two tiles? - actually its 90 because left side is 0->45 and then right is 45<-0
+            angleModulus =
+                2; //0 is 90 and the higher you go the more narrow the angle. //angle 45 is every two tiles? - actually its 90 because left side is 0->45 and then right is 45<-0
 
             Log.Safe($"AngledGlowFlooder created belongs on {Map.uniqueID} and we are on {Find.CurrentMap.uniqueID}  ");
-
         }
+
+        public IntVec3 Position { get; }
+
+        public Rot4 Orientation { get; }
+        public Color32 Color { get; }
+        private CompPower CP { get; }
+        private CompPowerTrader CPT { get; }
+        public Map Map { get; set; }
+
+        public List<GlowGridCache> ColorCellIndexCache { get; set; }
 
         public void CalculateGlowFlood()
         {
@@ -64,12 +66,13 @@ namespace ppumkin.LEDTechnology.GlowFlooders
 
         public void Clear()
         {
-            Color32 noColor = new Color32(0, 0, 0, 0);
+            var noColor = new Color32(0, 0, 0, 0);
             foreach (var i in ColorCellIndexCache)
             {
                 Map.glowGrid.glowGrid[i.CellGridIndex] = noColor;
                 //Find.MapDrawer.MapMeshDirty(thingPosition, MapMeshFlag.GroundGlow);
             }
+
             ColorCellIndexCache = new List<GlowGridCache>();
 
             //Find.VisibleMap.mapDrawer.MapMeshDirty(Position, MapMeshFlag.GroundGlow);
@@ -80,12 +83,16 @@ namespace ppumkin.LEDTechnology.GlowFlooders
         {
             //Log.Message("Anlge: Calc init");
 
-            if (this.CP == null || this.CP.PowerNet == null)
+            if (CP?.PowerNet == null)
+            {
                 return;
+            }
             //Log.Message("Anlge: powernet OK");
 
             if (!CPT.PowerOn)
+            {
                 return;
+            }
 
             //Log.Message("Anlge: Power ON");
 
@@ -94,32 +101,35 @@ namespace ppumkin.LEDTechnology.GlowFlooders
 
             //Log.Message("Anlge: checking cache");
             if (ColorCellIndexCache.Count > 0)
+            {
                 updateGlowGrid();
+            }
 
             //Log.Message("Anlge: Not cached - doing calc");
             //start tile
-            addCellIndex(this.Position, false);
+            addCellIndex(Position, false);
             //next tiles
 
 
-            ///implement collision detector
-            ///check is in bounds
-            ///find a way to fix very far lengths
+            //implement collision detector
+            //check is in bounds
+            //find a way to fix very far lengths
 
-            bool completeBlocker = false;
+            var completeBlocker = false;
 
-            int distance = 1;
-            int andgleDistanceDelta = 0;
+            var distance = 1;
+            var andgleDistanceDelta = 0;
             do
             {
-
                 if (andgleDistanceDelta == 0) //TODO CHECK BLOCKERS HERE, DUHHH!
-                    addCellIndex(Position.ToOffsetPositionDirection(distance, 0, this.Orientation), false);
+                {
+                    addCellIndex(Position.ToOffsetPositionDirection(distance, 0, Orientation), false);
+                }
 
-                for (int angleDelta = andgleDistanceDelta * (-1); angleDelta <= andgleDistanceDelta; angleDelta++)
+                for (var angleDelta = andgleDistanceDelta * -1; angleDelta <= andgleDistanceDelta; angleDelta++)
                 {
                     //Log.Message("distance: " + distance + " xD:" + x + " zD:" + z + " mod:" + distance % 3);
-                    var _pos = Position.ToOffsetPositionDirection(distance, angleDelta, this.Orientation);
+                    var _pos = Position.ToOffsetPositionDirection(distance, angleDelta, Orientation);
                     if (_pos.InBounds(Find.CurrentMap))
                     {
                         ////Log.Message("Block?: X:" + _pos.x + " Z: " + _pos.z);
@@ -127,7 +137,6 @@ namespace ppumkin.LEDTechnology.GlowFlooders
                         {
                             completeBlocker = true;
                             //addCellIndex(_pos, true); //it gets added in isBlocked method
-                            continue; //end of road buddy, neeeeext!
                         }
                         else
                         {
@@ -135,10 +144,11 @@ namespace ppumkin.LEDTechnology.GlowFlooders
                             //Log.Message("Not blocking: X:" + _pos.x + " Z: " + _pos.z);
                             addCellIndex(_pos, false);
                         }
-
                     }
                     else
+                    {
                         break; //Ge'me oughta here!
+                    }
                 }
 
                 //if (completeBlocker)
@@ -148,10 +158,11 @@ namespace ppumkin.LEDTechnology.GlowFlooders
                 //}
 
                 if (distance % angleModulus == 0) //bigger mod casues tighter angles
+                {
                     andgleDistanceDelta++;
+                }
 
                 distance++;
-
             } while (distance < targetDistance);
 
 
@@ -169,12 +180,13 @@ namespace ppumkin.LEDTechnology.GlowFlooders
                     //block this tile
                     addCellIndex(position, true);
                     //block next forward tile to prevent further light going this way
-                    addCellIndex(position.TranslateDirection(this.Orientation), true);
+                    addCellIndex(position.TranslateDirection(Orientation), true);
 
                     //block next left and right tiles to prevent further light going this way and help with "angle" detection
-                    addCellIndex(position.TranslateDirection(this.Orientation, 1), true);
-                    addCellIndex(position.TranslateDirection(this.Orientation, -1), true);
+                    addCellIndex(position.TranslateDirection(Orientation, 1), true);
+                    addCellIndex(position.TranslateDirection(Orientation, -1), true);
                 }
+
                 thingBlockers = null;
                 //Log.Message("Blocking by Def: X: " + position.x + " Z: " + position.z);
                 return true;
@@ -186,58 +198,47 @@ namespace ppumkin.LEDTechnology.GlowFlooders
             //I pre emtifly block the cell at the building collision level so now I can find it here and carry on blocking
             //This part feels a bit iffy to me because I have to carry on calculation blockers. Not sure how flag any further
             //blockers in that particular direction to be forgotten about. possibly a shortfall in my calculation logic. Oh well..it works I suppose
-            var thisCellBlocked = ColorCellIndexCache.FirstOrDefault(deltaZ => position == deltaZ.Position & deltaZ.IsBlocked);
+            var thisCellBlocked =
+                ColorCellIndexCache.FirstOrDefault(deltaZ => (position == deltaZ.Position) & deltaZ.IsBlocked);
 
-            if (thisCellBlocked != null)
+            if (thisCellBlocked == null)
             {
-                //block the next cell ahead and repeat el'kapitan!
-                addCellIndex(thisCellBlocked.Position.TranslateDirection(this.Orientation), true);
-                if (angleDelta < 0)
-                {
-                    //pffff.. a bit ugly i know.. but i need to compensate for wide angles over distance
-                    addCellIndex(thisCellBlocked.Position.TranslateDirection(this.Orientation, -1), true);
-                    //addCellIndex(thisCellBlocked.Position.TranslateDirection(this.Orientation, -2), true);
-                    //addCellIndex(thisCellBlocked.Position.TranslateDirection(this.Orientation, -3), true);
-                }
-                if (angleDelta > 0)
-                {
-                    addCellIndex(thisCellBlocked.Position.TranslateDirection(this.Orientation, 1), true);
-                    //addCellIndex(thisCellBlocked.Position.TranslateDirection(this.Orientation, 2), true);
-                    //addCellIndex(thisCellBlocked.Position.TranslateDirection(this.Orientation, 3), true);
-                }
+                return false;
             }
 
+            //block the next cell ahead and repeat el'kapitan!
+            addCellIndex(thisCellBlocked.Position.TranslateDirection(Orientation), true);
+            if (angleDelta < 0)
+            {
+                //pffff.. a bit ugly i know.. but i need to compensate for wide angles over distance
+                addCellIndex(thisCellBlocked.Position.TranslateDirection(Orientation, -1), true);
+                //addCellIndex(thisCellBlocked.Position.TranslateDirection(this.Orientation, -2), true);
+                //addCellIndex(thisCellBlocked.Position.TranslateDirection(this.Orientation, -3), true);
+            }
+
+            if (angleDelta > 0)
+            {
+                addCellIndex(thisCellBlocked.Position.TranslateDirection(Orientation, 1), true);
+                //addCellIndex(thisCellBlocked.Position.TranslateDirection(this.Orientation, 2), true);
+                //addCellIndex(thisCellBlocked.Position.TranslateDirection(this.Orientation, 3), true);
+            }
 
 
             return false;
         }
 
-        public class FloodBlocker
-        {
-            public int Z { get; set; }
-            public int X { get; set; }
-            public Rot4 Direction { get; set; }
-
-            public FloodBlocker(IntVec3 position)
-            {
-                this.X = position.x;
-                this.Z = position.z;
-            }
-
-        }
-
         private void addCellIndex(IntVec3 position, bool isBlocked)
         {
-            int _idx = position.AsCellIndex();
+            var _idx = position.AsCellIndex();
 
             //protect from multipoe entires of the same index. I know we can use an array but in this case we want an IEnumarable list
             if (!ColorCellIndexCache.Any(x => x.CellGridIndex == _idx))
             {
-                ColorCellIndexCache.Add(new GlowGridCache()
+                ColorCellIndexCache.Add(new GlowGridCache
                 {
                     Position = position,
                     CellGridIndex = _idx,
-                    ColorAtCellIndex = isBlocked ? new Color32(0, 0, 0, 0) : this.Color,
+                    ColorAtCellIndex = isBlocked ? new Color32(0, 0, 0, 0) : Color,
                     IsBlocked = isBlocked
                 });
             }
@@ -261,7 +262,8 @@ namespace ppumkin.LEDTechnology.GlowFlooders
                 }
                 catch (Exception ex)
                 {
-                    Log.Safe("AngledFlooder.updateGlowGrid exception - Probably cache is stale so will reset it : " + ex.Message);
+                    Log.Safe("AngledFlooder.updateGlowGrid exception - Probably cache is stale so will reset it : " +
+                             ex.Message);
                 }
             }
 
@@ -271,12 +273,23 @@ namespace ppumkin.LEDTechnology.GlowFlooders
 
         public override string ToString()
         {
-            return "AngledGlower - x:" + Position.x.ToString() + " z:" + Position.z.ToString();
+            return "AngledGlower - x:" + Position.x + " z:" + Position.z;
         }
 
+        public class FloodBlocker
+        {
+            public FloodBlocker(IntVec3 position)
+            {
+                X = position.x;
+                Z = position.z;
+            }
+
+            public int Z { get; set; }
+            public int X { get; set; }
+            public Rot4 Direction { get; set; }
+        }
     }
 }
-
 
 
 ////if (andgleDistanceDelta == 0)

@@ -9,14 +9,14 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ppumkin.LEDTechnology</RootNamespace>
     <AssemblyName>ppumkin.LEDTechnology</AssemblyName>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>false</DebugSymbols>
     <DebugType>none</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\Assemblies\</OutputPath>
+    <OutputPath>..\1.2\Assemblies\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -32,20 +32,11 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Assembly-CSharp">
-      <HintPath>..\..\..\RimWorldWin64_Data\Managed\Assembly-CSharp.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
-    <Reference Include="UnityEngine">
-      <HintPath>..\..\..\RimWorldWin64_Data\Managed\UnityEngine.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
+    <PackageReference Include="Krafs.Rimworld.Ref">
+      <Version>1.2.2900</Version>
+      <ExcludeAssets>runtime</ExcludeAssets>
+      <IncludeAssets>compile; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GlowFlooders\AngledGlowFlooder.cs" />

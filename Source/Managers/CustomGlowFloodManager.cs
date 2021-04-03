@@ -1,18 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-using UnityEngine;
-using Verse;
-using RimWorld;
+﻿using System.Collections.Generic;
 using ppumkin.LEDTechnology.GlowFlooders;
 
 namespace ppumkin.LEDTechnology.Managers
 {
     public static class CustomGlowFloodManager
     {
-
         public static List<IGlowFlooder> customFlooders; // = new List<IGlowFlooder>();
 
         static CustomGlowFloodManager()
@@ -45,7 +37,6 @@ namespace ppumkin.LEDTechnology.Managers
             {
                 customFlooder.CalculateGlowFlood();
             }
-
         }
     }
 }

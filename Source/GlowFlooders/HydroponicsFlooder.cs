@@ -8,19 +8,8 @@ namespace ppumkin.LEDTechnology.GlowFlooders
 {
     public class HydroponicsFlooder : IGlowFlooder
     {
-        //The start position. Basically whatever rimworld assigns to the Things.Position
-        public IntVec3 Position { get; private set; }
-
-        public Rot4 Orientation { get; private set; }
-        public Color32 Color { get; private set; }
-        CompPower CP { get; set; }
-        CompPowerTrader CPT { get; set; }
-        public Map Map { get; set; }
-
-        public List<GlowGridCache> ColorCellIndexCache { get; set; }
-
-
-        public HydroponicsFlooder(IntVec3 position, Rot4 orientation, CompPower compPower, CompPowerTrader compPowerTrader, Map map)
+        public HydroponicsFlooder(IntVec3 position, Rot4 orientation, CompPower compPower,
+            CompPowerTrader compPowerTrader, Map map)
         {
             Position = position;
             Orientation = orientation;
@@ -35,14 +24,25 @@ namespace ppumkin.LEDTechnology.GlowFlooders
             Log.Safe($"HydroponicsFlooder belongs on {Map.uniqueID} and we are on {Find.CurrentMap.uniqueID}  ");
         }
 
+        //The start position. Basically whatever rimworld assigns to the Things.Position
+        public IntVec3 Position { get; }
+
+        public Rot4 Orientation { get; }
+        public Color32 Color { get; }
+        private CompPower CP { get; }
+        private CompPowerTrader CPT { get; }
+        public Map Map { get; set; }
+
+        public List<GlowGridCache> ColorCellIndexCache { get; set; }
+
         /// <summary>
-        /// Clears the grid from any colors and dumps the cache.
+        ///     Clears the grid from any colors and dumps the cache.
         /// </summary>
         public void Clear()
         {
             Log.Safe("HydroponicsFlooder Clear");
 
-            Color32 noColor = new Color32(0, 0, 0, 0);
+            var noColor = new Color32(0, 0, 0, 0);
 
             foreach (var i in ColorCellIndexCache)
             {
@@ -58,11 +58,15 @@ namespace ppumkin.LEDTechnology.GlowFlooders
         {
             Log.Safe("HydroponicsFlooder CalculateGlowFlood start");
 
-            if (this.CP == null || this.CP.PowerNet == null)
+            if (CP?.PowerNet == null)
+            {
                 return;
+            }
 
             if (!CPT.PowerOn)
+            {
                 return;
+            }
 
             //if (!LEDTools.IsGridGlowing(thisPosition))
             //    return;
@@ -70,38 +74,87 @@ namespace ppumkin.LEDTechnology.GlowFlooders
             Log.Safe("HydroponicsFlooder CompPower OK PowerNet OK");
 
             if (ColorCellIndexCache.Count > 0)
+            {
                 updateGlowGrid();
+            }
 
-            switch ((int)Orientation.AsAngle)
+            switch ((int) Orientation.AsAngle)
             {
                 case 0:
-                    ColorCellIndexCache.Add(new GlowGridCache() { CellGridIndex = LEDTools.OffsetPosition(Position, 0, -1).AsCellIndex(), ColorAtCellIndex = Color });
-                    ColorCellIndexCache.Add(new GlowGridCache() { CellGridIndex = LEDTools.OffsetPosition(Position, 0, 0).AsCellIndex(), ColorAtCellIndex = Color });
-                    ColorCellIndexCache.Add(new GlowGridCache() { CellGridIndex = LEDTools.OffsetPosition(Position, 0, 1).AsCellIndex(), ColorAtCellIndex = Color });
-                    ColorCellIndexCache.Add(new GlowGridCache() { CellGridIndex = LEDTools.OffsetPosition(Position, 0, 2).AsCellIndex(), ColorAtCellIndex = Color });
+                    ColorCellIndexCache.Add(new GlowGridCache
+                    {
+                        CellGridIndex = LEDTools.OffsetPosition(Position, 0, -1).AsCellIndex(), ColorAtCellIndex = Color
+                    });
+                    ColorCellIndexCache.Add(new GlowGridCache
+                    {
+                        CellGridIndex = LEDTools.OffsetPosition(Position, 0, 0).AsCellIndex(), ColorAtCellIndex = Color
+                    });
+                    ColorCellIndexCache.Add(new GlowGridCache
+                    {
+                        CellGridIndex = LEDTools.OffsetPosition(Position, 0, 1).AsCellIndex(), ColorAtCellIndex = Color
+                    });
+                    ColorCellIndexCache.Add(new GlowGridCache
+                    {
+                        CellGridIndex = LEDTools.OffsetPosition(Position, 0, 2).AsCellIndex(), ColorAtCellIndex = Color
+                    });
                     break;
 
                 case 90:
-                    ColorCellIndexCache.Add(new GlowGridCache() { CellGridIndex = LEDTools.OffsetPosition(Position, -1, 0).AsCellIndex(), ColorAtCellIndex = Color });
-                    ColorCellIndexCache.Add(new GlowGridCache() { CellGridIndex = LEDTools.OffsetPosition(Position, 0, 0).AsCellIndex(), ColorAtCellIndex = Color });
-                    ColorCellIndexCache.Add(new GlowGridCache() { CellGridIndex = LEDTools.OffsetPosition(Position, 1, 0).AsCellIndex(), ColorAtCellIndex = Color });
-                    ColorCellIndexCache.Add(new GlowGridCache() { CellGridIndex = LEDTools.OffsetPosition(Position, 2, 0).AsCellIndex(), ColorAtCellIndex = Color });
+                    ColorCellIndexCache.Add(new GlowGridCache
+                    {
+                        CellGridIndex = LEDTools.OffsetPosition(Position, -1, 0).AsCellIndex(), ColorAtCellIndex = Color
+                    });
+                    ColorCellIndexCache.Add(new GlowGridCache
+                    {
+                        CellGridIndex = LEDTools.OffsetPosition(Position, 0, 0).AsCellIndex(), ColorAtCellIndex = Color
+                    });
+                    ColorCellIndexCache.Add(new GlowGridCache
+                    {
+                        CellGridIndex = LEDTools.OffsetPosition(Position, 1, 0).AsCellIndex(), ColorAtCellIndex = Color
+                    });
+                    ColorCellIndexCache.Add(new GlowGridCache
+                    {
+                        CellGridIndex = LEDTools.OffsetPosition(Position, 2, 0).AsCellIndex(), ColorAtCellIndex = Color
+                    });
                     break;
 
                 case 180:
-                    ColorCellIndexCache.Add(new GlowGridCache() { CellGridIndex = LEDTools.OffsetPosition(Position, 0, -2).AsCellIndex(), ColorAtCellIndex = Color });
-                    ColorCellIndexCache.Add(new GlowGridCache() { CellGridIndex = LEDTools.OffsetPosition(Position, 0, -1).AsCellIndex(), ColorAtCellIndex = Color });
-                    ColorCellIndexCache.Add(new GlowGridCache() { CellGridIndex = LEDTools.OffsetPosition(Position, 0, 0).AsCellIndex(), ColorAtCellIndex = Color });
-                    ColorCellIndexCache.Add(new GlowGridCache() { CellGridIndex = LEDTools.OffsetPosition(Position, 0, 1).AsCellIndex(), ColorAtCellIndex = Color });
+                    ColorCellIndexCache.Add(new GlowGridCache
+                    {
+                        CellGridIndex = LEDTools.OffsetPosition(Position, 0, -2).AsCellIndex(), ColorAtCellIndex = Color
+                    });
+                    ColorCellIndexCache.Add(new GlowGridCache
+                    {
+                        CellGridIndex = LEDTools.OffsetPosition(Position, 0, -1).AsCellIndex(), ColorAtCellIndex = Color
+                    });
+                    ColorCellIndexCache.Add(new GlowGridCache
+                    {
+                        CellGridIndex = LEDTools.OffsetPosition(Position, 0, 0).AsCellIndex(), ColorAtCellIndex = Color
+                    });
+                    ColorCellIndexCache.Add(new GlowGridCache
+                    {
+                        CellGridIndex = LEDTools.OffsetPosition(Position, 0, 1).AsCellIndex(), ColorAtCellIndex = Color
+                    });
                     break;
 
                 case 270:
-                    ColorCellIndexCache.Add(new GlowGridCache() { CellGridIndex = LEDTools.OffsetPosition(Position, -2, 0).AsCellIndex(), ColorAtCellIndex = Color });
-                    ColorCellIndexCache.Add(new GlowGridCache() { CellGridIndex = LEDTools.OffsetPosition(Position, -1, 0).AsCellIndex(), ColorAtCellIndex = Color });
-                    ColorCellIndexCache.Add(new GlowGridCache() { CellGridIndex = LEDTools.OffsetPosition(Position, 0, 0).AsCellIndex(), ColorAtCellIndex = Color });
-                    ColorCellIndexCache.Add(new GlowGridCache() { CellGridIndex = LEDTools.OffsetPosition(Position, 1, 0).AsCellIndex(), ColorAtCellIndex = Color });
+                    ColorCellIndexCache.Add(new GlowGridCache
+                    {
+                        CellGridIndex = LEDTools.OffsetPosition(Position, -2, 0).AsCellIndex(), ColorAtCellIndex = Color
+                    });
+                    ColorCellIndexCache.Add(new GlowGridCache
+                    {
+                        CellGridIndex = LEDTools.OffsetPosition(Position, -1, 0).AsCellIndex(), ColorAtCellIndex = Color
+                    });
+                    ColorCellIndexCache.Add(new GlowGridCache
+                    {
+                        CellGridIndex = LEDTools.OffsetPosition(Position, 0, 0).AsCellIndex(), ColorAtCellIndex = Color
+                    });
+                    ColorCellIndexCache.Add(new GlowGridCache
+                    {
+                        CellGridIndex = LEDTools.OffsetPosition(Position, 1, 0).AsCellIndex(), ColorAtCellIndex = Color
+                    });
                     break;
-
             }
 
             Log.Safe("HydroponicsFlooder Calculated ColorCellIndexCache");
@@ -131,7 +184,7 @@ namespace ppumkin.LEDTechnology.GlowFlooders
 
         public override string ToString()
         {
-            return "x:" + Position.x.ToString() + " z:" + Position.z.ToString();
+            return "x:" + Position.x + " z:" + Position.z;
         }
     }
 }

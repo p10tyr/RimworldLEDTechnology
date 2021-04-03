@@ -1,0 +1,222 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Defs>  
+  <ThingDef Abstract="True" Name="LEDStripLampBase" ParentName="LampBase">
+    <building>
+      <isInert>true</isInert>
+      <!--<ignoreNeedsPower>false</ignoreNeedsPower>-->
+      <isEdifice>false</isEdifice>
+    </building>
+        <rotatable>true</rotatable>
+        <statBases>
+            <MaxHitPoints>25</MaxHitPoints>
+            <WorkToMake>250</WorkToMake>
+			<Mass>1</Mass>
+			<Beauty>3</Beauty>
+        </statBases>
+    <designationCategory>LEDTechnology</designationCategory>
+    <placingDraggableDimensions>1</placingDraggableDimensions>
+    <altitudeLayer>FloorEmplacement</altitudeLayer>
+    <pathCost>0</pathCost>
+    <costList>
+      <Steel>1</Steel>
+      <Silver>1</Silver>
+    </costList>
+  </ThingDef>
+  <!--============================== Centre Strips ==============================-->
+  <ThingDef ParentName="LEDStripLampBase">
+    <defName>LEDCentreStrip</defName>
+    <label>LED Centre Strip</label>
+    <description>Drag and draw your LED Strip pattern.</description>
+    <thingClass>ppumkin.LEDTechnology.LEDCentreStrip</thingClass>
+    <uiIconPath>Things/Building/LED/LEDCentre/LEDCentreStrip_BluePrint</uiIconPath>
+    <graphicData>
+      <texPath>Things/Building/LED/LEDCentre/LEDStrip_Atlas</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <shaderType>Transparent</shaderType>
+      <linkType>Transmitter</linkType>
+      <linkFlags>
+        <li>PowerConduit</li>
+      </linkFlags>
+    </graphicData>
+    <building>
+      <blueprintGraphicData>
+        <texPath>Things/Building/LED/LEDCentre/LEDStrip_Blueprint_Atlas</texPath>
+      </blueprintGraphicData>
+    </building>
+    <comps>
+      <li Class="CompProperties_Power">
+        <compClass>CompPowerTrader</compClass>
+        <transmitsPower>true</transmitsPower>
+        <basePowerConsumption>8</basePowerConsumption>
+        <shortCircuitInRain>true</shortCircuitInRain>
+      </li>
+      <li Class="CompProperties_Glower">
+        <glowRadius>3</glowRadius>
+        <glowColor>214,221,84,0</glowColor>
+      </li>
+    </comps>
+  </ThingDef>
+  <!--============================== Corner Strips ==============================-->
+  <ThingDef ParentName="LEDStripLampBase">
+    <defName>LEDCornerStrip</defName>
+    <label>Corner Strip</label>
+    <description>A small and power efficient LED strip that fits snug against walls.</description>
+    <thingClass>ppumkin.LEDTechnology.LEDCornerStrip</thingClass>
+    <graphicData>
+      <texPath>Things/Building/LED/LEDCorner/LEDCornerStrip</texPath>
+    </graphicData>
+    <comps>
+      <li Class="CompProperties_Power">
+        <compClass>CompPowerTrader</compClass>
+        <basePowerConsumption>8</basePowerConsumption>
+        <shortCircuitInRain>true</shortCircuitInRain>
+      </li>
+      <li Class="CompProperties_Glower">
+        <glowRadius>3</glowRadius>
+        <glowColor>214,221,84,0</glowColor>
+      </li>
+    </comps>
+  </ThingDef>
+  <ThingDef ParentName="LEDStripLampBase">
+    <defName>LEDCornerStripCorner</defName>
+    <label>Corner Strip Bend</label>
+    <description>A small and power efficient LED strip that fits snug against bends on walls.</description>
+    <thingClass>ppumkin.LEDTechnology.LEDCornerStripCorner</thingClass>
+    <graphicData>
+      <texPath>Things/Building/LED/LEDCorner/LEDCornerStrip_Corner</texPath>
+    </graphicData>
+    <comps>
+      <li Class="CompProperties_Power">
+        <compClass>CompPowerTrader</compClass>
+        <basePowerConsumption>8</basePowerConsumption>
+        <shortCircuitInRain>true</shortCircuitInRain>
+      </li>
+      <li Class="CompProperties_Glower">
+        <glowRadius>3</glowRadius>
+        <glowColor>214,221,84,0</glowColor>
+      </li>
+    </comps>
+  </ThingDef>
+  <!--============================== Security LED Lights ==============================-->
+  <ThingDef ParentName="LampBase">
+    <defName>LEDSecurityLamp</defName>
+    <label>High Power Array</label>
+    <description>A high power array of LED's used to illuminate a large area.</description>
+    <thingClass>ppumkin.LEDTechnology.LEDSecurityLamp</thingClass>
+    <graphicData>
+      <texPath>Things/Building/Spotlights/LED_HighpowerArray</texPath>
+    </graphicData>
+        <statBases>
+            <MaxHitPoints>100</MaxHitPoints>
+            <WorkToMake>700</WorkToMake>
+            <Flammability>1.0</Flammability>
+			<Mass>15</Mass>
+			<Beauty>5</Beauty>
+        </statBases>
+    <costList>
+      <Steel>15</Steel>
+      <Silver>15</Silver>
+    </costList>
+    <pathCost>20</pathCost>
+    <comps>
+      <li Class="CompProperties_Power">
+        <compClass>CompPowerTrader</compClass>
+        <basePowerConsumption>50</basePowerConsumption>
+        <shortCircuitInRain>false</shortCircuitInRain>
+      </li>
+      <li Class="CompProperties_Glower">
+        <overlightRadius>0.0</overlightRadius>
+        <glowRadius>30</glowRadius>
+        <glowColor>214,221,84,0</glowColor>
+      </li>
+    </comps>
+    <designationCategory>LEDTechnology</designationCategory>
+  </ThingDef>
+  <ThingDef ParentName="LampBase">
+    <defName>LEDSpotLight</defName>
+    <label>Spot Light</label>
+    <description>High power LED spotlight focused to roughly 45 degrees of intensive light.</description>
+    <thingClass>ppumkin.LEDTechnology.LEDSpotLight</thingClass>
+    <uiIconPath>Things/Building/Spotlights/LED_Spotlight_Menu</uiIconPath>
+        <rotatable>true</rotatable>
+    <graphicData>
+      <texPath>Things/Building/Spotlights/LED_Spotlight</texPath>
+    </graphicData>
+        <statBases>
+            <MaxHitPoints>70</MaxHitPoints>
+            <WorkToMake>400</WorkToMake>
+            <Flammability>1.0</Flammability>
+			<Mass>7</Mass>
+			<Beauty>5</Beauty>
+        </statBases>
+    <costList>
+      <Steel>12</Steel>
+      <Silver>8</Silver>
+    </costList>
+    <pathCost>8</pathCost>
+    <comps>
+      <li Class="CompProperties_Power">
+        <compClass>CompPowerTrader</compClass>
+        <basePowerConsumption>30</basePowerConsumption>
+        <shortCircuitInRain>false</shortCircuitInRain>
+      </li>
+    </comps>
+    <designationCategory>LEDTechnology</designationCategory>
+  </ThingDef>
+  <!--============================== Hydroponics ==============================-->
+  <ThingDef ParentName="BuildingBase">
+    <defName>LEDHydroponicsBasin</defName>
+    <label>UV Hydroponics</label>
+    <description>Grows plants quickly in an artificial nutrient bath and lit using UV LED lights. Requires power to work; plants will die if power is cut.</description>
+    <thingClass>ppumkin.LEDTechnology.LEDHydroponicsBasin</thingClass>
+    <graphicData>
+      <texPath>Things/Building/Production/LEDHyrdoV3</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <drawSize>(1,4)</drawSize>
+      <damageData>
+        <cornerTL>Damage/Corner</cornerTL>
+        <cornerTR>Damage/Corner</cornerTR>
+        <cornerBL>Damage/Corner</cornerBL>
+        <cornerBR>Damage/Corner</cornerBR>
+      </damageData>
+    </graphicData>
+    <altitudeLayer>FloorEmplacement</altitudeLayer>
+    <passability>PassThroughOnly</passability>
+    <pathCost>60</pathCost>
+    <castEdgeShadows>true</castEdgeShadows>
+    <constructEffect>ConstructMetal</constructEffect>
+    <fillPercent>0.30</fillPercent>
+    <statBases>
+      <WorkToMake>3100</WorkToMake>
+      <MaxHitPoints>180</MaxHitPoints>
+      <Flammability>1.0</Flammability>
+      <Cleanliness>-3</Cleanliness>
+    </statBases>
+    <size>(1,4)</size>
+    <costList>
+      <Steel>65</Steel>
+      <Silver>8</Silver>
+    </costList>
+    <fertility>2.0</fertility>
+    <building>
+      <defaultPlantToGrow>Plant_Potato</defaultPlantToGrow>
+      <sowTag>Hydroponic</sowTag>
+    </building>
+    <tickerType>Rare</tickerType>
+    <comps>
+      <li Class="CompProperties_Forbiddable" />
+      <li Class="CompProperties_Power">
+        <compClass>CompPowerTrader</compClass>
+        <basePowerConsumption>100</basePowerConsumption>
+      </li>
+      <li Class="CompProperties_Flickable" />
+      <li Class="CompProperties_Breakdownable" />
+    </comps>
+    <researchPrerequisites>
+      <li>Hydroponics</li>
+      <li>LEDTechnologyScience</li>
+    </researchPrerequisites>
+    <terrainAffordanceNeeded>Heavy</terrainAffordanceNeeded>
+    <designationCategory>LEDTechnology</designationCategory>
+  </ThingDef>
+</Defs>
